@@ -1,0 +1,17 @@
+{
+  "name": "static_resource_server",
+  "version": "1.0.0",
+  "description": "nodejs static resource server webserver",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "webserver",
+    "static",
+    "resource",
+    "server"
+  ],
+  "author": "alchemy",
+  "license": "ISC"
+}
