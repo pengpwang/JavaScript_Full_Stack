@@ -3,6 +3,8 @@ const path = require('path');
 const Handlebars = require('handlebars');
 const promisify = require('util').promisify;
 const config = require('../config/defaultConfig');
+const mime = require('./mime');
+const compress = require('./compress');
 const stat = promisify(fs.stat);
 const readdir = promisify(fs.readdir);
 
@@ -14,10 +16,17 @@ module.exports = async function (req, res, filePath) {
     try {
         const stats = await stat(filePath);
         if(stats.isFile()){
+            const contentType = mime(filePath);
             res.statusCode = 200;
-            res.setHeader('Content-Type', 'text/plain');
+            res.setHeader('Content-Type', contentType);
             // fs.readFile(filePath, (err, data) => { res.end(data) }); 全部读完为data才传给data
-            fs.createReadStream(filePath).pipe(res);
+            
+            let rs = fs.createReadStream(filePath)
+            
+            if(filePath.match(config.compress)){
+                rs = compress(rs, req, res);
+            }
+            rs.pipe(res);
         }else if(stats.isDirectory()) {
             const files = await readdir(filePath);
             res.statusCode = 200;
@@ -27,7 +36,12 @@ module.exports = async function (req, res, filePath) {
             const data = {
                 title: path.basename(filePath),
                 dir: dir ? `/${dir}` : '', // 相对于网站的根路径，当filePath为当前路径，（根路径）时，返回的是空。 ？？？？
-                files
+                files: files.map((v) => {
+                    return {
+                        file: v,
+                        icon: mime(v)
+                    }
+                })
             };
 
             res.end(template(data));
