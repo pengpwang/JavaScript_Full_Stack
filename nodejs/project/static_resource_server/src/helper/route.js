@@ -5,6 +5,8 @@ const promisify = require('util').promisify;
 const config = require('../config/defaultConfig');
 const mime = require('./mime');
 const compress = require('./compress');
+const range = require('./range');
+const isFresh = require('./cache');
 const stat = promisify(fs.stat);
 const readdir = promisify(fs.readdir);
 
@@ -17,11 +19,26 @@ module.exports = async function (req, res, filePath) {
         const stats = await stat(filePath);
         if(stats.isFile()){
             const contentType = mime(filePath);
-            res.statusCode = 200;
             res.setHeader('Content-Type', contentType);
+
+            if(isFresh(stats, req, res)){
+                res.statusCode = 304;
+                res.end();
+                return;
+            }
+
+
             // fs.readFile(filePath, (err, data) => { res.end(data) }); 全部读完为data才传给data
             
-            let rs = fs.createReadStream(filePath)
+            let rs;
+            const { code, start, end } = range(stats.size, req, res);
+            if(code === 200){
+                res.statusCode = 200;
+                rs = fs.createReadStream(filePath);
+            }else{
+                res.statusCode = 206;
+                rs = fs.createReadStream(filePath, { start, end });
+            }
             
             if(filePath.match(config.compress)){
                 rs = compress(rs, req, res);

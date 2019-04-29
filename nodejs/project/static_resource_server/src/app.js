@@ -14,3 +14,5 @@ server.listen(conf.port, conf.hostname, () => {
     const addr = `http://${conf.hostname}:${conf.port}`;
     console.info(`Server started at ${chalk.green(addr)}`);
 });
+
+// 终端：  curl -r 0-10 -i http://127.0.0.1:9527/src/app.js 测试range 206等
