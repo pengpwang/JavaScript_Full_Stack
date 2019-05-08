@@ -1,3 +1,9 @@
+
+nodejs/project/puppeteer/public/*.png
+nodejs/project/puppeteer/public/*.jpg
+nodejs/project/puppeteer/public/*.jpeg
+nodejs/project/puppeteer/public/*.gif
+
 # Logs
 logs
 *.log
