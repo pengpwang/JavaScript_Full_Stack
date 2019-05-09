@@ -7,12 +7,11 @@ const { promisify } = require('util');
 const writeFile = promisify(fs.writeFile);
 const dir = path.join(__dirname, 'public');
 
-
 // urlToImage
 const urlToImage = promisify((url, directory, callback) => {
     const mod = /^https:/.test(url) ? https : http;
     const ext = path.extname(url);
-    const file = path.join(directory, `${Date.now()}${ext}`)
+    const file = path.join(directory, `${Date.now()}-${Math.random()}${ext}`)
     mod.get(url, (res) => {
         res.pipe(fs.createWriteStream(file))
             .on('finish', () => {
@@ -31,7 +30,7 @@ const base64ToImage = async (base64Str, directory) => {
     try {
         const ext = matches[1].split('/')[1]
             .replace('jpeg', 'jpg');
-        const file = path.join(directory, `${Date.now()}.${ext}`);
+        const file = path.join(directory, `${Date.now()}-${Math.random()}.${ext}`);
         await writeFile(file, matches[2], 'base64');
         console.log(file);
     } catch (e) {
@@ -41,7 +40,7 @@ const base64ToImage = async (base64Str, directory) => {
 
 
 const srcToImg = async (src, directory) => {
-    if(/\.(jpg|png|gif)/.test(src)){
+    if(/\.(jpg|png|gif|jpeg)/.test(src)){
         await urlToImage(src, directory);     
     }else{
         await base64ToImage(src, directory);
@@ -73,9 +72,9 @@ const srcToImg = async (src, directory) => {
 
         const srcs = await page.evaluate(() => {
             const images = document.querySelectorAll('img.main_img');
-            console.log(1, images);
             return Array.prototype.map.call(images, img => img.src);
         });
+        console.log(`${srcs.length} pictures`);
 
         srcs.forEach(async src => {
            await srcToImg(src, dir);
