@@ -23,16 +23,18 @@ const util = require('util');
 /**
  * Prototype.
  */
-
+// 暴露一个普通对象，对象里定义了可以访问到的属性和可以调用的方法
+// 处理数据完成后，响应给客户端的逻辑都封装在 response.js模块中
 module.exports = {
 
   /**
    * Return the request socket.
    *
    * @return {Connection}
-   * @api public
+   * @api public  // 表明api 是公开的。可以被创建的实例访问到
    */
 
+  // 拿到上下文请求中的套接字
   get socket() {
     return this.res.socket;
   },
@@ -44,6 +46,7 @@ module.exports = {
    * @api public
    */
 
+  // 拿到响应头中之前设置好的header, 若没有则返回{}, 且对nodejs版本做了兼容
   get header() {
     const { res } = this;
     return typeof res.getHeaders === 'function'
@@ -58,6 +61,7 @@ module.exports = {
    * @api public
    */
 
+  // 同 header, 拿到header的内容
   get headers() {
     return this.header;
   },
@@ -69,6 +73,7 @@ module.exports = {
    * @api public
    */
 
+  // 拿到返回的状态码
   get status() {
     return this.res.statusCode;
   },
@@ -80,6 +85,7 @@ module.exports = {
    * @api public
    */
 
+  // 设置状态码。即使之前设置了，这里依然可以修改; 若状态码不存在，则把返回的内容设为null
   set status(code) {
     if (this.headerSent) return;
 
@@ -98,6 +104,7 @@ module.exports = {
    * @api public
    */
 
+  // 拿到状态消息内容 404 -> Not Found
   get message() {
     return this.res.statusMessage || statuses[this.status];
   },
@@ -120,6 +127,7 @@ module.exports = {
    * @api public
    */
 
+  // 拿到响应内容，可能在中间件内设置过了body
   get body() {
     return this._body;
   },
@@ -130,12 +138,14 @@ module.exports = {
    * @param {String|Buffer|Object|Stream} val
    * @api public
    */
-
+  
+  // 设置返回内容;内部做了类型判断
   set body(val) {
     const original = this._body;
     this._body = val;
 
     // no content
+    // 没有内容时，设置status为204
     if (null == val) {
       if (!statuses.empty[this.status]) this.status = 204;
       this.remove('Content-Type');
@@ -151,6 +161,7 @@ module.exports = {
     const setType = !this.header['content-type'];
 
     // string
+    // 若内容时字符串时，判断内容是否是<开始，是的话返回html， 否则返回纯文本
     if ('string' == typeof val) {
       if (setType) this.type = /^\s*</.test(val) ? 'html' : 'text';
       this.length = Buffer.byteLength(val);
@@ -158,6 +169,7 @@ module.exports = {
     }
 
     // buffer
+    // 是否是buffer
     if (Buffer.isBuffer(val)) {
       if (setType) this.type = 'bin';
       this.length = val.length;
@@ -165,6 +177,7 @@ module.exports = {
     }
 
     // stream
+    // 是否是流
     if ('function' == typeof val.pipe) {
       onFinish(this.res, destroy.bind(null, val));
       ensureErrorHandler(val, err => this.ctx.onerror(err));
@@ -187,7 +200,7 @@ module.exports = {
    * @param {Number} n
    * @api public
    */
-
+  // 设置响应内容的长度
   set length(n) {
     this.set('Content-Length', n);
   },
@@ -199,6 +212,7 @@ module.exports = {
    * @api public
    */
 
+   // 拿到响应内容的长度
   get length() {
     const len = this.header['content-length'];
     const body = this.body;
@@ -221,6 +235,7 @@ module.exports = {
    * @api public
    */
 
+  // 判断header的内容有没有写到套接字里面去；通常用来判断是否开始响应部分内容给客户端
   get headerSent() {
     return this.res.headersSent;
   },
@@ -232,6 +247,7 @@ module.exports = {
    * @api public
    */
 
+  // 通过vary列出一些响应的字段列表，帮助缓存服务器使用合适的版本去解释这个文档 *** 高级玩法 ***
   vary(field) {
     if (this.headerSent) return;
 
@@ -257,6 +273,7 @@ module.exports = {
    * @api public
    */
 
+  // 重定向；绝对地址，路径
   redirect(url, alt) {
     // location
     if ('back' == url) url = this.ctx.get('Referrer') || alt || '/';
@@ -285,6 +302,7 @@ module.exports = {
    * @api public
    */
 
+  // 附件， 对附件类型可以配置filename实现内容的配置 ***高级玩法***
   attachment(filename, options) {
     if (filename) this.type = extname(filename);
     this.set('Content-Disposition', contentDisposition(filename, options));
@@ -305,7 +323,7 @@ module.exports = {
    * @param {String} type
    * @api public
    */
-
+  // 设置返回的内容类型
   set type(type) {
     type = getType(type);
     if (type) {
@@ -325,6 +343,7 @@ module.exports = {
    * @api public
    */
 
+  // 修改文件上一次的更改时间；用来通知客户端，内容过期，不要用本地缓存了
   set lastModified(val) {
     if ('string' == typeof val) val = new Date(val);
     this.set('Last-Modified', val.toUTCString());
@@ -336,7 +355,7 @@ module.exports = {
    * @return {Date}
    * @api public
    */
-
+  // 拿到上次更新的时间
   get lastModified() {
     const date = this.get('last-modified');
     if (date) return new Date(date);
@@ -353,7 +372,7 @@ module.exports = {
    * @param {String} etag
    * @api public
    */
-
+  // 由服务器生成一个实体tag，用来标识url对象是否发生了更新或者改变
   set etag(val) {
     if (!/^(W\/)?"/.test(val)) val = `"${val}"`;
     this.set('ETag', val);
@@ -392,7 +411,7 @@ module.exports = {
    * @return {String|false}
    * @api public
    */
-
+  // 判断是不是某种类型
   is(types) {
     const type = this.type;
     if (!types) return type || false;
@@ -415,7 +434,7 @@ module.exports = {
    * @return {String}
    * @api public
    */
-
+  // 拿到header里面具体配置项的内容
   get(field) {
     return this.header[field.toLowerCase()] || '';
   },
@@ -434,7 +453,7 @@ module.exports = {
    * @param {String} val
    * @api public
    */
-
+  // 设置header里面一些子项的内容
   set(field, val) {
     if (this.headerSent) return;
 
@@ -464,7 +483,7 @@ module.exports = {
    * @param {String|Array} val
    * @api public
    */
-
+  // 插入一些自定义的header配置项
   append(field, val) {
     const prev = this.get(field);
 
@@ -483,7 +502,7 @@ module.exports = {
    * @param {String} name
    * @api public
    */
-
+  // 移除一些header配置项
   remove(field) {
     if (this.headerSent) return;
 
@@ -499,9 +518,10 @@ module.exports = {
    * @api private
    */
 
+  // 检查request 是否继续可写
   get writable() {
     // can't write any more after response finished
-    if (this.res.finished) return false;
+    if (this.res.finished) return false;  // 完成响应的话，不允许写入内容了
 
     const socket = this.res.socket;
     // There are already pending outgoing res, but still writable
@@ -542,6 +562,8 @@ module.exports = {
   /**
    * Flush any set headers, and begin the body
    */
+
+  // 刷新之前设置过的headers
   flushHeaders() {
     this.res.flushHeaders();
   }

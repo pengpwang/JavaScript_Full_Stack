@@ -23,6 +23,8 @@ const IP = Symbol('context#ip');
  * Prototype.
  */
 
+// 暴露一个对象，在 application.js中通过Object.create()去创建一个新对象
+// get 和 set 间接地修改属性的值
 module.exports = {
 
   /**
@@ -32,6 +34,7 @@ module.exports = {
    * @api public
    */
 
+  // 通过ctx.header可以拿到头信息
   get header() {
     return this.req.headers;
   },
