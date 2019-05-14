@@ -6,9 +6,17 @@
  */
 
 const util = require('util');
+
+// Error的处理
 const createError = require('http-errors');
+
+// 断言
 const httpAssert = require('http-assert');
+
+// 代理，委托
 const delegate = require('delegates');
+
+// 状态码
 const statuses = require('statuses');
 const Cookies = require('cookies');
 
@@ -18,6 +26,8 @@ const COOKIES = Symbol('context#cookies');
  * Context prototype.
  */
 
+// 暴露出去的是一个对象, 暴露给Application.js
+// context.js源代码作用：将request 和response 上的方法和属性全部汇聚给了 context 
 const proto = module.exports = {
 
   /**
@@ -27,7 +37,7 @@ const proto = module.exports = {
    * @return {Object}
    * @api public
    */
-
+  // 工具类方法 inspect
   inspect() {
     if (this === proto) return this;
     return this.toJSON();
@@ -44,11 +54,11 @@ const proto = module.exports = {
    * @return {Object}
    * @api public
    */
-
+  // json化处理
   toJSON() {
     return {
-      request: this.request.toJSON(),
-      response: this.response.toJSON(),
+      request: this.request.toJSON(),  // 把 request转为 json
+      response: this.response.toJSON(), // 把 response 转为 json
       app: this.app.toJSON(),
       originalUrl: this.originalUrl,
       req: '<original node req>',
@@ -70,6 +80,7 @@ const proto = module.exports = {
    * @api public
    */
 
+   // 断言
   assert: httpAssert,
 
   /**
@@ -93,6 +104,7 @@ const proto = module.exports = {
    * @api public
    */
 
+  // 抛错误
   throw(...args) {
     throw createError(...args);
   },
@@ -103,7 +115,7 @@ const proto = module.exports = {
    * @param {Error} err
    * @api private
    */
-
+  // 错误事件处理
   onerror(err) {
     // don't do anything if there is no error.
     // this allows you to pass `this.onerror`
@@ -188,6 +200,7 @@ if (util.inspect.custom) {
  * Response delegation.
  */
 
+// 将 response上后面的方法都陆陆续续挂到proto上面
 delegate(proto, 'response')
   .method('attachment')
   .method('redirect')

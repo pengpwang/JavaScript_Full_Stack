@@ -209,11 +209,17 @@ module.exports = class Application extends Emitter {
    */
 
   createContext(req, res) {
-    // 对象互相挂载，方便在整个HTTP请求链路中及时的访问到进来的及出去的请求上面的特定属性和行为
-    const context = Object.create(this.context);
+    // 对象互相挂载，方便在整个HTTP请求链路中及时的访问到进来的及出去的请求上面的特定属性和行为.使我们用起来更方便
+
+    // Object.create(proto [, propertiesObject])  //使用指定的原型对象及其属性去创建一个新对象
+    const context = Object.create(this.context);  // 生成新对象 context
     const request = context.request = Object.create(this.request);
     const response = context.response = Object.create(this.response);
+
+    // 将当前实例交给context.app
     context.app = request.app = response.app = this;
+
+    // 将nodejs原生的req, res 交给 context.req, context.res
     context.req = request.req = response.req = req;
     context.res = request.res = response.res = res;
     request.ctx = response.ctx = context;
@@ -221,6 +227,7 @@ module.exports = class Application extends Emitter {
     response.request = request;
     context.originalUrl = request.originalUrl = req.url;
     context.state = {};
+
     return context;
   }
 
