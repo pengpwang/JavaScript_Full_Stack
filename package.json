@@ -6,6 +6,7 @@
     "koa-logger": "^3.2.0"
   },
   "dependencies": {
-    "koa": "^2.7.0"
+    "koa": "^2.7.0",
+    "koa-session": "^5.11.0"
   }
 }
