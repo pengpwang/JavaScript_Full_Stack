@@ -199,6 +199,7 @@ module.exports = class Application extends Emitter {
     onFinished(res, onerror);
 
     // fnMiddleware中间件数组，中间件数组处理链路，等到整个中间件数组处理完成后，把最终处理结果通过then传递给handleResponse
+    // 第一次执行fnMiddleware(ctx)；未传递next; 在koa-compose的dispatch(0)里面生成
     return fnMiddleware(ctx).then(handleResponse).catch(onerror);
   }
 
