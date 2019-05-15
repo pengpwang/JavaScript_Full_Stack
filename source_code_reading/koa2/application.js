@@ -267,6 +267,7 @@ function respond(ctx) {
   const code = ctx.status;
 
   // ignore body
+  // 校验状态码是否在允许的范围内，不是的话直接返回
   if (statuses.empty[code]) {
     // strip headers
     ctx.body = null;
@@ -281,13 +282,14 @@ function respond(ctx) {
   }
 
   // status body
+  // 校验返回内容是否为null
   if (null == body) {
     if (ctx.req.httpVersionMajor >= 2) {
       body = String(code);
     } else {
-      body = ctx.message || String(code);
+      body = ctx.message || String(code);  // 返回状态码的信息或者状态码
     }
-    if (!res.headersSent) {
+    if (!res.headersSent) {   // 如果内容还没有发送,则设置type和length
       ctx.type = 'text';
       ctx.length = Buffer.byteLength(body);
     }
