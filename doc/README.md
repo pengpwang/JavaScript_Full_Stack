@@ -18,6 +18,7 @@
 - vue基础语法包括模板语法及组件通信
 - vue-router基础语法使用
 - axios请求封装的组成
+- 浏览器跨域的原理及如何处理跨域
 - vuex基础语法及使用
 - create-react-app项目配置解析
 - vue源码实现原理
