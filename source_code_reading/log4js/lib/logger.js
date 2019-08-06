@@ -115,6 +115,7 @@ function addLevelMethods(target) {
   };
 }
 
+console.log(levels.levels);
 levels.levels.forEach(addLevelMethods);
 
 configuration.addListener(() => {
