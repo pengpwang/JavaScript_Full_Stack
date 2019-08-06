@@ -1,6 +1,7 @@
 ### 专题学习总结
 
 - Nodejs事件循环机制
+- Nodejs异常捕获
 - Nodejs中commonjs规范的实现
 - Stream
 - child_process和cluster
@@ -24,3 +25,5 @@
 - vue源码实现原理
 - react源码实现原理
 - 组件化框架的实现
+- webpack源码解析
+- PM2源码解析
