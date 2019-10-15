@@ -449,3 +449,57 @@ console.log(
   url.domainToUnicode('xn--iñvalid.com'), // ''
 );
 
+// url.fileURLToPath(url)
+//  url <URL> | <string> 要转换为路径的文件 URL 字符串或者 URL 对象。
+//  返回: <string> 完全解析的平台特定的 Node.js 文件路径
+//此方法保证百分号编码字符解码结果的正确性，同时也确保绝对路径字符串在不同平台下的有效性。
+console.log(
+  url.fileURLToPath('file:///dir/txt.js')  // /dir/txt.js
+);
+
+// url.pathToFileURL(path)
+// path <string> 要转换为文件 URL 的路径。
+// 返回: <URL> 文件 URL 对象。
+// 此函数可确保 path 会被解析为绝对路径，并在转换为文件 URL 时正确编码 URL 控制字符。
+console.log(
+  url.pathToFileURL('/dir/txt.js'),
+  url.pathToFileURL(__dirname)
+);
+// URL {
+//   href: 'file:///dir/txt.js',
+//   origin: 'null',
+//   protocol: 'file:',
+//   username: '',
+//   password: '',
+//   host: '',
+//   hostname: '',
+//   port: '',
+//   pathname: '/dir/txt.js',
+//   search: '',
+//   searchParams: URLSearchParams {},
+//   hash: '' }
+
+
+// url.format(URL[, options])
+// URL <URL> WHATWG URL 对象。
+// options <Object>
+  // auth <boolean> 如果序列化的 URL 字符串应该包含用户名和密码则为 true，否则为 false。默认值: true。
+  // fragment <boolean> 如果序列化的 URL 字符串应该包含分段则为 true，否则为 false。默认值: true。
+  // search <boolean> 如果序列化的 URL 字符串应该包含搜索查询则为 true，否则为 false。默认值: true。
+  // unicode <boolean> 如果出现在 URL 字符串主机元素里的 Unicode 字符应该被直接编码而不是使用 Punycode 编码则为 true。默认值: false。
+// 返回: <string></string>
+// 返回代表 WHATWG URL 对象的可自定义序列化的 URL String
+// 虽然 URL 对象的 toString() 方法和 href 属性都可以返回 URL 的序列化的字符串。 然而，两者都不可以被自定义。 而 url.format(URL[, options]) 方法允许输出的基本自定义
+console.log(
+  url.format(new URL(href), {}), // http://user:pass@sub.example.com:8080/p/a/t/h?query=string#hash
+  url.format(new URL(href), { auth: false }), // http://sub.example.com:8080/p/a/t/h?query=string#hash
+  url.format(new URL(href), {
+    auth: false,
+    search: false,
+    fragment: false
+  }),  // http://sub.example.com:8080/p/a/t/h
+  url.format(new URL('http://测试.com')), //  http://xn--0zwm56d.com/
+  url.format(new URL('http://测试.com'), {
+    unicode: true
+  }),  // http://测试.com/
+);
