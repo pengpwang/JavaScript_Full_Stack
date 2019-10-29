@@ -63,3 +63,31 @@ const util = require('util');
 // const result = script.runInContext(sandbox, {timeout: 500});
 // console.log(`result: ${result}`);
 
+// 4. script.runInNewContext([sandbox[, options]])
+
+// const script = new vm.Script('globalVar = "set"');
+// const sandboxes = [{}, {}, {}];
+// sandboxes.forEach((sandbox) => {
+//   script.runInNewContext(sandbox);
+// });
+
+// console.log(util.inspect(sandboxes)); // [ { globalVar: 'set' }, { globalVar: 'set' }, { globalVar: 'set' } ]
+
+
+// 5. script.runInThisContext([options])  能获取global对象
+// global.globalVar = 0;
+// const script = new vm.Script('globalVar += 1', { filename: 'myfile.vm' });
+// for (let i = 0; i < 1000; ++i) {
+//   script.runInThisContext();
+// }
+// console.log(globalVar);  // 1000
+
+// 6. vm.isContext(sandbox);  判断sandbox是否被vm.createContext()上下文隔离化
+const sandbox = {};
+console.log(
+  vm.isContext(sandbox),  // false
+);
+vm.createContext(sandbox);
+console.log(
+  vm.isContext(sandbox),  // true
+);
