@@ -1,0 +1,15 @@
+{
+  "name": "yargs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "parse-json.js",
+  "bin": {
+    "parse-json": "parse-json.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

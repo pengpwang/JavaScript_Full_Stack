@@ -139,10 +139,33 @@
 // 12. process.exitCode  
 // 进程正常退出时或process.exit() 退出且未指定退出码时的进程退出码
 // 指定process.exit(exitCode) 退出码，将覆盖原有的设置
-console.log(
-  process.exitCode
-);
+// console.log(
+//   process.exitCode
+// );
 
+// 13. process.mainModule  // require.main的替代方式  
+// 区别在于，若主模块在运行时中发生改变，require.main 可能仍然指向变化之前所依赖的模块
+//  没有入口脚本时，值为 undefined
+// console.log(
+//   process.mainModule
+// );
+
+// 14. process.noDeprecation  // 是否在当前进程设置了 --no-deprecation标志
+// console.log(
+//   process.noDeprecation
+// );
+
+// node --no-deprecation  process.js  // true
+ 
+// 15. process.pid  //  返回当前进程的pid
+// console.log(
+//   process.pid
+// );
+
+// 16. process.ppid  // 返回当前父进程的pid
+// console.log(
+//   process.ppid
+// );
 
 
 
