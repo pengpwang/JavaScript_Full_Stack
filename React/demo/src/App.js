@@ -1,10 +1,10 @@
 import React from 'react';
-import Demo from './pages/Demo';
+import Admin from './Admin';
 
 function App() {
   return (
     <div className="App">
-      <Demo></Demo>
+      <Admin></Admin>
     </div>
   );
 }
