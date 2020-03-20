@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "co": "^4.6.0",
     "koa": "^2.7.0",
     "koa-session": "^5.11.0",
     "log4js": "^4.3.1",
