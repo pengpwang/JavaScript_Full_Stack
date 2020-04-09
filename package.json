@@ -4,6 +4,8 @@
     "@babel/core": "^7.8.3",
     "@babel/preset-env": "^7.4.4",
     "gulp": "^4.0.2",
+    "gulp-rename": "^2.0.0",
+    "gulp-uglify": "^3.0.2",
     "koa-logger": "^3.2.0",
     "mississippi": "^4.0.0",
     "webpack": "^4.34.0",
