@@ -67,4 +67,36 @@ npx create-react-app myProjectName
 
 #### 2.3 用eject解构编译脚本
 
+eject不可逆【简洁性与灵活性此消彼长】
+
+
+### 第三章 React最新特性简介
+
+React新特性
+- Context 
+- ContextType
+- lazy
+- Suspense
+- memo
+
+#### 3.1 Context实现跨层级的组件数据传递
+
+(1). Context定义
+Context提供了一种方式，能够让数据在组件树中传递而不必一级一级手动传递
+
+(2). 结构
+a). Context实例对象
+b). 派生出两个组件 <Provider> 和 <Consumer>
+c). <Provider> 为Context的生产者
+d). <Consumer> 为Context的消费者
+
+(3). API
+createContext(defaultValue?) 创建Context实例对象
+
+#### 3.2 React中contextType的使用
+// TODO 待补充
+
+#### 3.3 React中Lazy和Suspense的使用
+
+(1). 背景
 
