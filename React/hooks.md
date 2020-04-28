@@ -182,3 +182,63 @@ React约定：所有Hooks函数(包括自定义的Hooks函数)都应该以`use`�
 以上时机之前分别对应 `componentDidMount`, `componentDidUpdate`, `componentWillUnmount`,现在使用useEffect覆盖几乎所有的情况
 
 (3). useEffect
+- 标准上在组件每次渲染(`render`)之后调用
+- useEffect可以自定义调用或不调用
+- useEffect的第二个参数是一个可选的数组【使useEffect切入到正确的状态和环节上，并且能优化性能，节省不必要的计算损耗】，只有在数组中的每一项都不变的情况下，useEffect才不会执行
+- 第一次渲染之后useEffect一定会被执行，并且没有初始值，但下一次什么时候再执行，取决于数组每一项的对比【有两个特例：a). 不传数组，则每次渲染后都执行useEffect; b). 传入空数组, useEffect只在第一次渲染之后执行一次】
+Hooks组件相对于类组件在编写副作用上的优越性：a). 提高了代码复用； b). 优化了关注点分离
+
+#### 4.4 使用Context Hooks
+
+- context能够允许数据跨越组件层级直接传递
+- 不要滥用context，他会破坏组件的独立性
+- 在函数组件中，不止能获取一个context, 从语法上看，对context的数量获取没有限制
+
+(1). consumer版本
+```js
+const CountContext = createContext();
+
+...
+
+function Leaf() {
+  return <CountContext.Consumer>
+    { count => <h1>{ count }</h1> }
+  </CountContext.Consumer>
+}
+```
+
+
+(2). contextType版本
+```js
+const CountContext = createContext();
+
+...
+
+class Bar extends React.Component {
+  static contextType = CountContext;
+
+  render() {
+    const count = this.context;
+    return <div>
+      <h1>{ count }</h1>
+    </div>
+  }
+}
+```
+
+(3). useContext版本
+```js
+const CountContext = createContext();
+
+...
+
+function Counter() {
+  const count = useContext(CountContext);
+  return <h1>{ count }</h1>
+}
+```
+
+#### 4.5 使用Memo/Callback Hooks
+
+
+
