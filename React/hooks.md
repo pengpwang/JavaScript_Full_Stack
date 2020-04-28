@@ -162,3 +162,23 @@ Hooks允许我们在函数组件中，用特定的预定义函数来标记状态
 
 #### 4.2 使用 State Hooks  【useState】
 React约定：所有Hooks函数(包括自定义的Hooks函数)都应该以`use`开头
+用来替代类组件state成员及setState方法的新的状态解决方案
+
+- useState在函数组件内必须按照固定的顺序和数量被调用 【使用eslint-plugin-react-hooks检查并报错编写不合规范的hooks】
+- useState可以传入一个默认值作为默认状态
+- useState可以传入一个函数来延迟初始化，提高效率
+
+#### 4.3 使用 Effect Hooks
+
+(1). 副作用 【组件渲染过程之外的行为】
+- 绑定事件
+- 网络请求
+- 访问DOM
+
+(2). 副作用时机
+- Mount之后
+- Update之后
+- Unmount之前
+以上时机之前分别对应 `componentDidMount`, `componentDidUpdate`, `componentWillUnmount`,现在使用useEffect覆盖几乎所有的情况
+
+(3). useEffect
