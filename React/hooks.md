@@ -257,6 +257,19 @@ function Counter() {
 - 运行策略和useEffect一样的，但调用时机不一样。useMemo是在渲染期间完成，useEffect在渲染之后完成
 - useMemo需要返回值
 
+(4). useCallback
+- useCallback是useMemo的一种变体
+- 使用useCallback不能阻止创建新的函数，但这个函数不一定会被返回，很可能创建的函数被抛弃不用了。
+- useCallback解决的是传入子组件的函数参数过多变化，导致子组件过多渲染的问题
 
+#### 4.6 使用Ref Hooks
 
+(1). Ref 更新迭代
+- 在React的更新迭代中，类组件关于Ref分别推荐使用了 String Ref, Callback Ref, CreateRef
+- 在函数组件中使用useRef
 
+(2). useRef
+- 获取子组件或者DOM节点的句柄
+- 渲染周期之间共享数据的存储
+
+#### 4.7 自定义Hooks
