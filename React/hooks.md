@@ -287,5 +287,12 @@ function Counter() {
 
 (1). 对传统React编程的影响
 - 生命周期函数如何映射到Hooks?
-- 类实例成员变量如何映射到Hooks?
+- 类实例成员变量如何映射到Hooks? 【使用ref】
+- Hooks中如何获取历史props和state? 【通过ref】
+- 如何强制更新一个Hooks组件？【主动创建一个不参与实际渲染的state,然后更新其值来实现强制重渲染】
+
+
+### 第五章 Redux的概念和意义
+
+
 
