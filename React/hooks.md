@@ -293,6 +293,137 @@ function Counter() {
 
 
 ### 第五章 Redux的概念和意义
+状态容器与数据流管理
+
+Redux是数据流和数据容器管理工具
+- 数据流：修改数据的途径，以什么样的形态来表达对数据的改动,以及如何组织数据之间的关系
+
+理论基础：
+(1). Redux三大原则：
+- 单一数据源  【应用程序的所以数据都挂载在同一对象下面，方便管理；代表同一信息量的数据只有一份，避免不同步】
+- 状态不可变 【修改数据的前后，数据源不再是同一个对象了 =》 可以实现应用程序状态的保存，实现时间旅行的功能，而且可以避免不按规定直接修改数据的行为】
+- 纯函数修改状态 【纯函数的意思是没有副作用，同样的输入产生同样的输出 =》 目的在于精确重现对数据的修改行为】
+以上三个原则是Redux实现的核心思想
+
+#### 5.1 不用Redux实现todo lists
+
+```js
+import React, { useState, useCallback, createRef, useEffect } from 'react';
+import './Todos.css';
+
+const LS_C = '$_todos';
+let idSeq = +Date.now();
+
+function Control(props) {
+  const { addTodo } = props;
+  const inputRef = createRef();
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    const newTxt = inputRef.current.value.trim();
+
+    if(newTxt === ''){
+      return;
+    }
+
+    addTodo({
+      id: ++idSeq,
+      text: newTxt,
+      complete: false
+    });
+
+    inputRef.current.value = '';
+  };
+  return <div>
+    <h1>Todo Control</h1>
+    <form onSubmit={onSubmit}>
+      <input
+        ref={inputRef}
+        className="todo-input"
+        type="text"
+        placeholder="what’s need to be done ?"
+      />
+    </form>
+  </div>
+}
+
+function TodoItem (props) {
+  const { todo: { id, text, complete }, toggleTodo, removeTodo } = props;
+  const onChange = () => {
+    toggleTodo(id);
+  };
+  const onRemove = () => {
+    removeTodo(id);
+  };
+  return (
+    <li>
+      <input 
+        type="checkbox"
+        onChange={onChange}
+        checked={complete}
+      />
+      <label className={complete ? 'complete' : ''}>{ text }</label>
+      <button onClick={onRemove}>X</button>
+    </li>
+  );
+}
+
+function Todos(props) {
+  const { todos, removeTodo, toggleTodo } = props;
+  return <ul>
+    { 
+      todos.map(v => 
+        <TodoItem 
+          key={v.id}
+          todo={v}
+          toggleTodo={toggleTodo}
+          removeTodo={removeTodo}
+        />)
+    }
+  </ul>;
+}
+
+function TodoList () {
+  const [ todos, setTodos ] = useState([]);
+
+  const addTodo = useCallback((todo) => {
+    setTodos(todos => [...todos, todo]);
+  }, []);
+
+  const removeTodo = useCallback((id) => {
+    setTodos(todos => todos.filter(v => {
+      return v.id !== id;
+    }));
+  }, []);
+
+  const toggleTodo = useCallback((id) => {
+    setTodos(todos => todos.map(v => {
+      return v.id === id 
+        ? { ...v, complete: !v.complete } 
+        : v;
+    }))
+  }, []);
+
+  useEffect(() => {
+    setTodos(JSON.parse(localStorage.getItem(LS_C) || '[]'));
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(LS_C, JSON.stringify(todos));
+  }, [todos]);
+
+  return <div>
+    <Control addTodo={addTodo } />
+    <Todos todos={todos} removeTodo={removeTodo} toggleTodo={toggleTodo} />
+  </div>
+}
+
+export default TodoList;
+```
+
+#### 5.2 dispatch和Action
+
+
 
 
 
