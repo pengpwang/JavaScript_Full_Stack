@@ -437,6 +437,29 @@ export default TodoList;
 - cache API
 - Notification API
 
+a. Service Worker 服务工作线程
+  - 独立于页面，常驻内存运行
+  - 代理网络请求
+  - 依赖HTTPS
 
+b. Promise
+  - 优化回调地狱
+  - async/await语法同步化
+  - service worker的API风格
 
+c. fetch
+  - 比XMLHttpRequest更简洁
+  - Promise风格
+  - 依旧存在不足：不支持progress进度报告；abort中断
+
+d. cache API 支持资源的缓存系统
+  - 缓存资源(css/scripts/image)
+  - 依赖Service Worker 代理网络请求
+  - 支持离线程序运行
+
+e. Notification API 消息推送
+  - 依赖用户授权
+  - 适合在Service Worker中推送
+
+(2). 服务工作线程 Service Worker
 
