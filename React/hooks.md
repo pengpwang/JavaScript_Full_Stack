@@ -422,7 +422,20 @@ export default TodoList;
 ```
 
 #### 5.2 dispatch和Action
+#### 5.3 用reducer拆解数据更新
+#### 5.4 异步Action
 
+
+### 第六章 PWA (Progressive Web App) 渐进式web应用
+
+#### 6.1 PWA简介
+
+(1). PWA组成技术
+- Service Worker
+- Promise
+- fetch
+- cache API
+- Notification API
 
 
 
