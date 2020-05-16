@@ -461,5 +461,69 @@ e. Notification API 消息推送
   - 依赖用户授权
   - 适合在Service Worker中推送
 
-(2). 服务工作线程 Service Worker
+#### 6.2 服务工作线程 Service Worker
+
+注意：
+- 需浏览器支持
+- Service Worker 运行在http协议下，无法运行在file协议下 ???? TODO 待确认
+- 在 Service Worker 的上下文中不能访问DOM，window，localStorage等对象
+- Service Worker 是一个全新的上下文，比如: self代码这个Service Worker的全局作用域对象
+
+```html
+<script>
+  navigator
+    .serviceWorker
+    .register('./sw.js', { scope: '/' })
+    .then(registration => {
+      console.log(1, registration);
+    }, e => {
+      console.log(2, e);
+    });
+</script>
+```
+
+```js
+self.addEventListener('install', event => {
+  console.log('install', event);
+});
+
+self.addEventListener('activate', event => {
+  console.log('install', event);
+});
+
+self.addEventListener('fetch', event => {
+  console.log('install', event);
+});
+```
+
+#### 6.3 "承诺"控制流：Promise
+
+思考题: 加载100张图片，但同时并行的最多只有10个promise。如何实现  // TODO
+
+#### 6.4 更优雅的网络请求：fetch
+
+思考题: XMLHTTPRequest实现ajax  // TODO
+
+```js
+var xhr = new XMLHttpRequest();
+xhr.responseType = 'json';
+xhr.onreadystatechange = () => {
+  if(xhr.readyState === 4){
+    if(xhr.status >= 200 && xhr.status <300){
+      console.log(xhr.response);
+    }
+  }
+};
+
+xhr.open('GET', '/user.json', true);
+xhr.send(null);
+```
+
+```js
+fetch('/user.json', {
+  method: 'GET'
+})
+  .then(res => res.json())
+  .then(info => console.log(info))
+```
 
