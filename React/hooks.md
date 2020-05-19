@@ -527,3 +527,7 @@ fetch('/user.json', {
   .then(info => console.log(info))
 ```
 
+#### 6.5 资源的缓存系统：cache API
+
+#### 6.6 消息推送：Notification API
+
