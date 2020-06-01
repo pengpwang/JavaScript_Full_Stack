@@ -553,6 +553,44 @@ fetch('/user.json', {
 (2). 初始化文件代码
 (3). 修改webpack的配置【entry入口和html的处理都写死成了index】
 
+#### 7.4 为项目搭建Mock server
+
+在`package.json`中添加`proxy: 'mock server的地址'`
+
+
+```js
+// package.json
+{
+  "proxy": "http://localhost:3000/"
+}
+```
+
+### 第八章 【项目篇】火车票首页  【实战业务开发】
+
+React --- 组件化拆解
+Redux --- 数据流拆解
+通过以上将整体分解为单个的小问题
+根据业务需求，设计应用程序的状态字段和可能的数据变更操作，特别是React视觉组件的模块化，以此搭建一个架子，在整体大框架下以此解决各个小问题。  --- 分而治之的思想
+
+#### 8.1 数据结构与模块设计
+
+(1). 拆解视觉组件
+(2). 设计Redux的store状态字段
+(3). 根据状态字段，实现store的action和reducer
+
+异步actions的使用场景：
+涉及到异步操作；
+需要用到当前state的值(getState);
+同时多个dispatch的情况；
+
+#### 8.2 顶部导航栏
+
+
+
+
+
+
+
 
 
  
