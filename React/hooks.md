@@ -585,6 +585,7 @@ Redux --- 数据流拆解
 
 #### 8.2 顶部导航栏
 
+公共组件编写
 添加 prop-types 包，用于运行时校验传入React组件属性的类型。
 
 ```
@@ -637,6 +638,25 @@ export default function App() {
 ```
 
 #### 8.3 始发终到站
+
+页面组件编写
+分析组件需要：2个回调函数 exchangeFromTo, showCitySelector; 2个状态from, to;  ----》结合到redux中及用useCallback和useMemo包装传入属性函数降低组件重渲染次数。
+分析组件UI构成。
+静态资源的选择及引入。
+// svg 图像 【TODO】
+
+#### 8.4 城市选择浮层-顶部搜索栏
+
+安装第三方包 classnames 动态添加className
+// iconfont的使用 【TODO】
+
+#### 8.5 城市选择浮层-城市的异步加载
+
+
+
+
+
+
 
 
 
