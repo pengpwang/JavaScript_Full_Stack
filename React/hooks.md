@@ -585,6 +585,59 @@ Redux --- 数据流拆解
 
 #### 8.2 顶部导航栏
 
+添加 prop-types 包，用于运行时校验传入React组件属性的类型。
+
+```
+yarn add prop-types --save
+```
+
+```js
+import React from 'react';
+import PropTypes from 'prop-types';
+
+export default function Header(props) {
+  const {
+    onBack,
+    title
+  } = props;
+
+  return (
+    <div className="header">
+      <div className="header-back" onClick={onBack}></div>
+      <h1>{title}</h1>
+    </div>
+  )
+}
+
+// Header是函数组件； 用于运行时校验传入React组件属性的类型
+Header.propTypes = {
+  onBack: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired
+}
+```
+
+```js
+import React, { useCallback } from 'react';
+import Header from './Header';
+
+
+export default function App() {
+ 
+  const onBack = useCallback(() => {
+    window.history.back();
+  }, []);
+
+  return (
+    <div>
+      <Header onBack={onBack} title="--" />
+    </div>
+  )
+}
+
+```
+
+#### 8.3 始发终到站
+
 
 
 
