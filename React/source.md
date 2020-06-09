@@ -25,7 +25,7 @@ Flow Type:
 变成如下：
 ```js
 React.createElement('div', { id: 'div', key: 'key' }, 'test');
-// 节点类型 ； property属性对象； children
+// 节点类型 ； properties属性对象； children
 ```
 
 ```jsx
@@ -42,7 +42,7 @@ React.createElement(
   React.createElement('span', null, '1'),
   React.createElement('span', null, '2'),
 );
-// 节点类型 ； property属性对象； children
+// 节点类型 ； properties属性对象； children
 ```
 
 
@@ -69,7 +69,7 @@ React.createElement(
   React.createElement('span', null, '2'),
 );
 // 节点类型 (原生节点：字符串；自己声明的组件：class component 或者 funcitonal component； React原生的组件：Fragment、StrictMode、Suspense等 )；
-// config (写在标签上的所有attrs) property属性对象； 
+// config (写在标签上的所有attrs) properties属性对象； 
 // children 子标签或者文字
 ```
 注意：React组件必须以大写开头，否则参数标签第一位会是字符串，大写的话是组件变量
