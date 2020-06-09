@@ -79,3 +79,40 @@ React.createElement(
 
 #### 2.4 react-component
 
+#### 2.5 react-ref
+
+React引入Ref的目的；解决了哪些场景需求；
+Ref的三种使用方式： 
+a. string ref; 不被推荐，将废弃；
+b. function 
+c. createRef
+
+```jsx
+class RefDemo extends React.Component{
+  constructor() {
+    super()
+    this.objRef = React.createRef();
+    // { current: null }  在组件渲染完成后，会把组件对应的实例挂载到此对象的current属性上面
+  }
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.refs.stringRef.textContent = 'string ref got';
+      this.methodRef.textContent = 'method ref got';
+      this.objRef.current.textContent = 'obj ref got'; 
+    }, 1000);
+  } 
+
+  render() {
+    return <>
+      <p ref="stringRef"></p>
+      <p ref={ele => this.methodRef = ele}></p>
+      {/* ele参数 是 这个节点对应的实例；DOM节点对应的是DOM实例；React组件对应的是组件的实例 */}
+      <p ref={this.objRef}></p>
+    </>
+  }
+}
+
+```
+
+#### 2.6 forward-ref
