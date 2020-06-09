@@ -116,3 +116,4 @@ class RefDemo extends React.Component{
 ```
 
 #### 2.6 forward-ref
+
