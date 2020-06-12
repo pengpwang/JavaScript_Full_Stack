@@ -142,3 +142,113 @@ export default class Comp extends React.Component {
   }
 }
 ```
+
+#### 2.7 context
+
+父组件通过props传递给子组件数据属性，给子组件使用；
+父组件通过传递回调函数给子组件，可以让子组件在某些时候调用父组件的特性；
+
+多层级组件，最外层和最内层数据传递；中间使用的组件可能是第三方的不是自己写的组件，另外一层层传递也不合理且没有意义；
+解决的问题：跨越多层组件传递信息的功能
+
+实现context的两种方式：
+childContextType：【老的,将在react 17 大版本被废弃】==> 废弃原因：数据更新会导致其内所有组件更新，耗性能
+createContext：【新的,react 16 以后提供的】
+
+```jsx
+import React from 'react'
+import PropTypes from 'prop-types'
+
+const { Provider, Consumer } = React.createContext('default')
+
+class Parent extends React.Component {
+  state = {
+    childContext: '123',
+    newContext: '456',
+  }
+
+  getChildContext() {
+    return { value: this.state.childContext, a: 'aaaaa' }
+  }
+
+  render() {
+    return (
+      <>
+        <div>
+          <label>childContext:</label>
+          <input
+            type="text"
+            value={this.state.childContext}
+            onChange={e => this.setState({ childContext: e.target.value })}
+          />
+        </div>
+        <div>
+          <label>newContext:</label>
+          <input
+            type="text"
+            value={this.state.newContext}
+            onChange={e => this.setState({ newContext: e.target.value })}
+          />
+        </div>
+        <Provider value={this.state.newContext}>{this.props.children}</Provider>
+      </>
+    )
+  }
+}
+
+class Parent2 extends React.Component {
+  // { value: this.state.childContext, a: 'bbbbb' }
+  getChildContext() {
+    return { a: 'bbbbb' }
+  }
+
+  render() {
+    return this.props.children
+  }
+}
+
+function Child1(props, context) {
+  console.log(context)
+  return <Consumer>{value => <p>newContext: {value}</p>}</Consumer>
+}
+
+Child1.contextTypes = {
+  value: PropTypes.string,
+}
+
+class Child2 extends React.Component {
+  render() {
+    return (
+      <p>
+        childContext: {this.context.value} {this.context.a}
+      </p>
+    )
+  }
+}
+
+// Child2.contextType = Consumer
+
+Child2.contextTypes = {
+  value: PropTypes.string,
+  a: PropTypes.string,
+}
+
+Parent.childContextTypes = {
+  value: PropTypes.string,
+  a: PropTypes.string,
+}
+
+Parent2.childContextTypes = {
+  a: PropTypes.string,
+}
+
+export default () => (
+  <Parent>
+    <Parent2>
+      <Child1 />
+      <Child2 />
+    </Parent2>
+  </Parent>
+)
+
+```
