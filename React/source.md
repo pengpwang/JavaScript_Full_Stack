@@ -117,3 +117,28 @@ class RefDemo extends React.Component{
 
 #### 2.6 forward-ref
 
+解决什么问题：
+functional Component是不能实例化的；ref是用来获取节点的实例的；forward-ref实现对ref的传递在functional Component
+
+```jsx
+import React from 'react';
+
+const TargetComponent = React.forwardRef((props, ref) => (
+  <input type="text" ref={ref} />
+));
+
+export default class Comp extends React.Component {
+  constructor() {
+    super()
+    this.ref = React.createRef();
+  }
+
+  componentDidMount() {
+    this.ref.current.value = 'ref got input';
+  }
+
+  render() {
+    return <TargetComponent ref={this.ref} />
+  }
+}
+```
