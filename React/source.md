@@ -252,3 +252,135 @@ export default () => (
 )
 
 ```
+
+#### 2.8 concurrent-mode
+
+目标：让React的整体渲染过程，能够进行一个优先级的排比，且让整体的渲染过程是能够中断的，可以进行任务的调度；
+React去区分一些优先级比较高或比较低的任务，在进行React更新的过程中，优先执行优先级高的任务，待浏览器执行完优先级比较高的任务后，有空余时间的时候再执行优先级较低的任务。
+
+```jsx
+import React, { ConcurrentMode } from 'react'
+// 在更新操作中，flushSync 强制使用优先级最高的方式进行更新。
+import { flushSync } from 'react-dom' 
+
+// 被ConcurrentMode包裹的子树上，产生的更新都是低优先级的更新
+
+import './index.css'
+// @keyframes slide {
+//   0% {
+//     margin-left: 0;
+//     /* transform: translateX(0); */
+//   }
+
+//   50% {
+//     margin-left: 200px;
+//     /* transform: translateX(200px); */
+//   }
+
+//   100% {
+//     margin-left: 0;
+//     /* transform: translateX(0); */
+//   }
+// }
+
+// .wrapper {
+//   width: 400px;
+//   animation-duration: 3s;
+//   animation-name: slide;
+//   animation-iteration-count: infinite;
+//   display: flex;
+//   flex-wrap: wrap;
+//   background: red;
+// }
+
+// .item {
+//   width: 20px;
+//   height: 20px;
+//   line-height: 20px;
+//   text-align: center;
+//   border: 1px solid #aaa;
+// }
+
+class Parent extends React.Component {
+  state = {
+    async: true,
+    num: 1,
+    length: 2000,
+  }
+
+  componentDidMount() {
+    this.interval = setInterval(() => {
+      this.updateNum()
+    }, 200)
+  }
+
+  componentWillUnmount() {
+    // 别忘了清除interval
+    if (this.interval) {
+      clearInterval(this.interval)
+    }
+  }
+
+  updateNum() {
+    const newNum = this.state.num === 3 ? 0 : this.state.num + 1
+    if (this.state.async) {
+      this.setState({
+        num: newNum,
+      })
+    } else {
+      flushSync(() => {
+        this.setState({
+          num: newNum,
+        })
+      })
+    }
+  }
+
+  render() {
+    const children = []
+
+    const { length, num, async } = this.state
+
+    for (let i = 0; i < length; i++) {
+      children.push(
+        <div className="item" key={i}>
+          {num}
+        </div>,
+      )
+    }
+
+    return (
+      <div className="main">
+        async:{' '}
+        <input
+          type="checkbox"
+          checked={async}
+          onChange={() => flushSync(() => this.setState({ async: !async }))}
+        />
+        <div className="wrapper">{children}</div>
+      </div>
+    )
+  }
+}
+
+// class Child extends React.Component {
+//   state = {
+//     num: 1
+//   }
+
+//   render () {
+//     return (
+//       <div>
+
+//       </div>
+//     )
+//   }
+// }
+
+export default () => (
+  <ConcurrentMode>
+    <Parent />
+  </ConcurrentMode>
+)
+```
+
