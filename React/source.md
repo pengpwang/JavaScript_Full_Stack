@@ -386,7 +386,7 @@ export default () => (
 
 #### 2.9 suspense-and-lazy
 
-在一个Suspense组件的内部
+在一个Suspense组件的内部，等到内部的所有组件都resolved之后，Suspense组件才会将fallback去掉，然后显示Suspense组件内部的内容；任何一个处于pending状态的，Suspense组件还显示fallback
 
 ```jsx
 import React, { Suspense, lazy } from 'react'
