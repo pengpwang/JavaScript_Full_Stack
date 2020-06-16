@@ -420,3 +420,19 @@ export default () => (
   </Suspense>
 )
 ```
+
+#### 2.10 hooks
+
+意义在于：拆分组件内部的逻辑，提取出来，以便给更多的组件去复用
+
+#### 2.11 children
+
+// TODO  
+
+#### 2.12 others
+
+memo
+Fragment
+StrictMode
+cloneElement
+createFactory
