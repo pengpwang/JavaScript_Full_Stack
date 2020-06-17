@@ -454,3 +454,22 @@ React本身只是创建节点类型，告诉我们每个节点是什么类型，
 React-dom涉及到了如何去操作，如何去更新，如何显示
 
 
+### 第三章 React中的更新
+
+主要讲解React创建更新中的主要两种方式ReactDOM.render和setState，他们具体做了什么。
+
+React中创建更新的三种方式：
+1). ReactDOM.render || hydrate 
+把整个应用第一次渲染到页面上，展现出应用样子的过程 --- 初次渲染
+2). setState
+后续更新应用
+3). forceUpdate
+
+#### 3.1 react-dom-render
+ReactDOM.render
+渲染步骤：
+创建ReactRoot 【包含React整个应用的最顶点的一个对象】；
+创建FiberRoot和RootFiber；
+创建更新；
+
+
