@@ -432,7 +432,25 @@ export default () => (
 #### 2.12 others
 
 memo
+用意：给functional Component拥有类似pureComponent的功能；pureComponent提供了class Component组件在props没有变化的情况下，不重新渲染；functional Component没有生命周期，也没有继承这个说法，之前也没提供类似功能。
+
 Fragment
+1). Fragment组件本身是一个Symbol
+2). React组件不能返回多个组件节点，只能返回一个节点
+3). Fragment节点没有任何意义，也不会生成多余的div节点
+
 StrictMode
+1). StrictMode本身也是一个Symbol
+2). StrictMode下的子树都要按照某种模式渲染，StrictMode会给下面子树提供一些过时的Api的提醒；影响范围仅限于子树
+
 cloneElement
+1). clone创建一个新的React Element
+
 createFactory
+1). 是对creatElement的封装
+
+以上总结：
+React本身只是创建节点类型，告诉我们每个节点是什么类型，及props, key, ref这些东西，并没有任何操作与逻辑在里面；
+React-dom涉及到了如何去操作，如何去更新，如何显示
+
+
