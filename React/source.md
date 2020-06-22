@@ -539,4 +539,12 @@ type BaseFiberRootProperties = {|
 |};
 ```
 
+#### 3.3 react-fiber
+
+React 16以后，fiber是整个应用的核心
+
+什么是Fiber?
+1). 每一个ReactElement对应一个Fiber对象
+2). 记录节点的各种状态; 如：class Component 的state和props是记录在Fiber对象上的，在Fiber更新之后，才会更新到class Component的this.state和this.props里面。并非class Component自己调理的过程，这些过程都是通过Fiber上面操作的，只是更新节点之后，才会把这个属性放到this上面。这也给React实现hooks挺供了方便，hooks用在functional Component里面的，functional Component没有this，本身记录stage和props不是在class Component 对象上面，而是在Fiber上面。所以functional component更新之后，有能力可以拿到更新之后的state。
+3). 串联整个应用形成树结构
 
