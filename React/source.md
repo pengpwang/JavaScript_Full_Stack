@@ -667,4 +667,54 @@ type Fiber = {|
 存放于Fiber对象的UpdateQueue中;UpdateQueue是一个单向链表的结构，整体的更新过程中这个UpdateQueue中可能存在着多个Update
 多个Update可以同时存在; 例如：一个事件里面连续调用了三次setState, 三次setState产生的是三个update对象，并不会一次setState就会更新一下整个应用；是等到三个setState执行完了，三个update对象创建完放到UpdateQueue里面，再进行一个更新的操作。
 
-2. 
+```js
+
+export type Update<State> = {
+  // 更新的过期时间
+  expirationTime: ExpirationTime,
+
+  // export const UpdateState = 0;
+  // export const ReplaceState = 1;
+  // export const ForceUpdate = 2;
+  // export const CaptureUpdate = 3;
+  // 指定更新的类型，值为以上几种
+  tag: 0 | 1 | 2 | 3,
+  // 更新内容，比如`setState`接收的第一个参数
+  payload: any,
+  // 对应的回调，`setState`，`render`都有
+  callback: (() => mixed) | null,
+
+  // 指向下一个更新
+  next: Update<State> | null,
+  // 指向下一个`side effect`
+  nextEffect: Update<State> | null,
+};
+
+export type UpdateQueue<State> = {
+  // 每次操作完更新之后的`state`
+  baseState: State,
+
+  // 队列中的第一个`Update`
+  firstUpdate: Update<State> | null,
+  // 队列中的最后一个`Update`
+  lastUpdate: Update<State> | null,
+
+  // 第一个捕获类型的`Update`
+  firstCapturedUpdate: Update<State> | null,
+  // 最后一个捕获类型的`Update`
+  lastCapturedUpdate: Update<State> | null,
+
+  // 第一个`side effect`
+  firstEffect: Update<State> | null,
+  // 最后一个`side effect`
+  lastEffect: Update<State> | null,
+
+  // 第一个和最后一个捕获产生的`side effect`
+  firstCapturedEffect: Update<State> | null,
+  lastCapturedEffect: Update<State> | null,
+};
+
+```
+
+#### 3.5 react-expiration-time
+
