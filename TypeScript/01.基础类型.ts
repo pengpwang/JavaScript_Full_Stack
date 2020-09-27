@@ -71,12 +71,12 @@ const add1 = function (x: number, y: number, z?: number): number {
 const add2: (x: number, y: number, z?: number) => number = add1;
 
 class Animal {
-  name: string;
+  public readonly name: string;
   constructor(name: string) {
     this.name = name;
   }
 
-  run() {
+  protected run() {
     console.log(`${this.name} is running`);
   }
 

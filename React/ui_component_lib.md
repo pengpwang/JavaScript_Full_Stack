@@ -174,14 +174,101 @@ s = 1; // 报错
 - 面向对象(oop)三大特性：封装、继承、多态
 
 ### 2.10 类（Class）第二部分
+1. 修饰符 =》类似权限管理 
+ - public
+ - private (外部无法访问,只能在类内部访问,子类也无法访问)
+ - protected (内部及子类可以访问)
+ - readonly (只读，无法修改)
+ - static (静态属性，静态方法，无需实例化，直接在类上可以调用) =>定义及使用与实例没有太大关系的时候，使用静态方法
 
+### 2.11 类和接口
 
+- 使用implements约束类的属性和方法
 
+### 2.12 枚举（Enum）
+取值为在一定范围内的一系类常量
+```typescript
+// 数字枚举
+enum Direction {
+  Up,
+  Down,
+  Left,
+  Right
+}
+console.log(Direction.Up); // 0
+console.log(Direction[0]); // 反向映射  Up    双向赋值
+// 编译后：
+var Direction;
+(function (Direction) {
+    Direction[Direction["Up"] = 0] = "Up";
+    Direction[Direction["Down"] = 1] = "Down";
+    Direction[Direction["Left"] = 2] = "Left";
+    Direction[Direction["Right"] = 3] = "Right";
+})(Direction || (Direction = {}));
 
+// 字符串枚举  =》有意义可调试
+enum Color {
+  Red = 'Red',
+  Yellow = 'Yellow',
+  Blue = 'Blue'
+}
 
+// 常量枚举  ==》提高性能
+const enum Color1 {
+  Red = 'Red',
+  Yellow = 'Yellow',
+  Blue = 'Blue'
+}
+console.log(Color.Red);
+// 编译后
+console.log("Red" /* Red */);
+```
 
+### 2.13 泛型（Generics） 第一部分
+在定义函数，接口，或类的时候，不预先指定具体的类型，而是在使用的时候才指定类型的一种特征; 像一个占位符或者一个变量，使用的时候像参数一样传入
 
+```typescript
+// 在函数名称后面加一对尖括号，尖括号里面写泛型的名称，如：T ，叫什么名称都可以。这就创建了第一个泛型的参数，相当于一个占位符，这个占位符叫T。什么类型不知道，使用的时候指定即可
+function echo<T>(arg: T): T {
+  return arg;
+}
+const result = echo(122);
 
+function swap<T, U>(tuple: [T, U]): [U, T] {
+  return [ tuple[1], tuple[0] ];
+}
+const r1 = swap([123, 'string']);
+```
+
+### 2.14 泛型（Generics） 第二部分 - 约束泛型
+
+```typescript
+interface IWithLength {
+  length: number;
+}
+
+function echoWithLength<T extends IWithLength>(arg: T): T {
+  console.log(arg.length);
+  return arg;
+}
+
+echoWithLength('str');
+echoWithLength([1,3]);
+echoWithLength({ length: 1, w: 2 })
+```
+
+### 2.15 泛型（Generics） 第三部分 - 类和接口
+
+```typescript
+
+// 接口上泛型的使用
+interface KeyPair<T, U> {
+  key: T;
+  value: U;
+}
+let kp1: KeyPair<number, string> = { key: 1, value: 'str' };
+let kp2: KeyPair<string, number> = { key: 's', value: 2 };
+```
 
 
 
