@@ -322,6 +322,22 @@ function getName(v: NameOrResolver): string {
 
 类型断言 type assertion
 
+```typescript
+function getLength(input: number | string): number {
+  if((<string>input).length){
+    return (<string>input).length;
+  }else{
+    return input.toString().length;
+  }
+}
+```
+
+### 2.17 声明文件
+
+```ts
+// index.d.ts
+declare var jQuery: (s: any) => any;
+```
 
 
 

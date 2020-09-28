@@ -98,12 +98,23 @@
 // }
 // const sum2: IPlusType = sum;
 
-type NameResolver = () => string;
-type NameOrResolver = string | NameResolver;
-function getName(v: NameOrResolver): string {
-  if(typeof v === 'string'){
-    return v;
+// type NameResolver = () => string;
+// type NameOrResolver = string | NameResolver;
+// function getName(v: NameOrResolver): string {
+//   if(typeof v === 'string'){
+//     return v;
+//   }else{
+//     return v()
+//   }
+// }
+
+
+function getLength(input: number | string): number {
+  if((<string>input).length){
+    return (<string>input).length;
   }else{
-    return v()
+    return input.toString().length;
   }
 }
+
+
