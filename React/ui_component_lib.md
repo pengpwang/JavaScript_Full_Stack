@@ -260,6 +260,21 @@ echoWithLength({ length: 1, w: 2 })
 ### 2.15 泛型（Generics） 第三部分 - 类和接口
 
 ```typescript
+// 在类上使用泛型
+class Queue<T> {
+  private data = [];
+
+  push(item: T) {
+    return this.data.push(item);
+  }
+
+  pop(): T {
+   return this.data.shift()
+  }
+}
+const q1 = new Queue<number>();
+q1.push(1);
+console.log(q1.pop().toFixed(2));
 
 // 接口上泛型的使用
 interface KeyPair<T, U> {
@@ -268,9 +283,44 @@ interface KeyPair<T, U> {
 }
 let kp1: KeyPair<number, string> = { key: 1, value: 'str' };
 let kp2: KeyPair<string, number> = { key: 's', value: 2 };
+
+// interface + 泛型
+interface IPlus<T> {
+  (a: T, b: T): T;
+}
+function plus(a: number, b: number): number {
+  return a + b;
+}
+function connect(a: string, b: string): string {
+  return a + b;
+}
+const p1: IPlus<number> = plus;
+const p2: IPlus<string> = connect;
 ```
 
+### 2.16 类型别名和类型断言
+类型别名 type aliases
 
+```typescript
+type IPlusType = (x: number, y: number) => number;
+function sum(x: number, y: number): number {
+  return x + y;
+}
+const sum2: IPlusType = sum;
+
+// 函数参数的类型别名
+type NameResolver = () => string;
+type NameOrResolver = string | NameResolver;
+function getName(v: NameOrResolver): string {
+  if(typeof v === 'string'){
+    return v;
+  }else{
+    return v()
+  }
+}
+```
+
+类型断言 type assertion
 
 
 
