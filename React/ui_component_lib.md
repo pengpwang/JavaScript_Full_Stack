@@ -330,6 +330,10 @@ function getLength(input: number | string): number {
     return input.toString().length;
   }
 }
+
+// as 断言
+let someValue: any = "this is a string";
+let strLength: number = (someValue as string).length;
 ```
 
 ### 2.17 声明文件
@@ -339,6 +343,9 @@ function getLength(input: number | string): number {
 declare var jQuery: (s: any) => any;
 ```
 
+### 第3章 React配合typescript
+
+### 3.1 React简介和基础知识回顾
 
 
 
