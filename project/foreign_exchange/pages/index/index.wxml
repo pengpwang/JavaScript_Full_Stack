@@ -1,0 +1,32 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="item-wrap" wx:for="{{ list }}" wx:key="unique" bindtap="linkToCalculator" data-name="{{ item.name }}">
+    <view class="item-logo">{{ item.name }}</view>
+    <view class="item-info">
+      <view class="country-name">
+        <text class="country-name-n">{{ item.name }} </text>
+        <text class="country-name-time"> {{ item.date }} {{ item.time }}</text>
+      </view>
+      <view class="moneny-l">
+        <view class="moneny-c">
+          <text class="buy-txt">现钞买入</text>
+          <text class="buy-num"> {{ item.mBuyPri || '--'}} </text>
+        </view>
+        <view class="moneny-c">
+          <text class="buy-txt">现汇买入</text>
+          <text class="buy-num"> {{ item.fBuyPri || '--' }} </text>
+        </view>
+      </view>
+      <view class="moneny-l">
+        <view class="moneny-c">
+          <text class="buy-txt">现钞卖出</text>
+          <text class="buy-num"> {{ item.mSellPri || '--' }} </text>
+        </view>
+        <view class="moneny-c">
+          <text class="buy-txt">现汇卖出</text>
+          <text class="buy-num"> {{ item.fSellPri || '--' }} </text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

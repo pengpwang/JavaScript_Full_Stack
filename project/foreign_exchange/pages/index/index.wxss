@@ -1,0 +1,42 @@
+/**index.wxss**/
+.item-wrap{
+  padding: 20rpx;
+  display: flex;
+  align-items: center;
+  border-bottom: 2rpx solid #ccc;
+}
+
+.item-logo{
+  width: 160rpx;
+  height: 160rpx;
+  margin-right: 10rpx;
+  display: flex;
+  align-items: center;
+}
+
+.item-info{
+  /* border-bottom: 2rpx solid black; */
+}
+
+.country-name{
+  font-size: 40rpx;
+}
+
+.country-name-time{
+  font-size: 26rpx;
+}
+
+.moneny-l{
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+}
+
+.moneny-c{
+  margin-right: 20rpx;
+  font-size: 28rpx;
+}
+
+.buy-num{
+  color: brown;
+}

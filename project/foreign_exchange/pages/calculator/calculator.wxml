@@ -1,0 +1,77 @@
+<!--calculator.wxml-->
+<view class="container">
+  <view class="tab-wrap">
+    <view class="tab-item {{ current === item.index ? 'active' : '' }}" wx:for="{{ tabs }}" wx:key="unique" data-index="{{ item.index }}" bindtap="handleTab">{{ item.name }}</view>
+  </view>
+  <view class="tab-content-wrap">
+    <!-- 现钞买入价 -->
+    <view class="item" hidden="{{ current !== N_mBuyPri }}">
+      <view class="item-tips">
+        <view class="item-tips-l">100 {{ name }} = {{ country_ex.mBuyPri }} 人民币</view>
+        <view class="item-tips-l">1 人民币 = {{ 100 / country_ex.mBuyPri}} {{ name }}</view>
+      </view>
+      <view class="item-calc">
+        <view class="item-calc-l">
+          <view class="item-calc-l-txt">人民币</view>
+          <input class="calc-input" type="digit" value="{{ rmb_mBuyPri }}" data-type="{{ N_mBuyPri }}"  bindinput="handleRmb" />
+        </view>
+        <view class="item-calc-l">
+          <view class="item-calc-l-txt">{{ name }}</view>
+          <input class="calc-input" type="digit" value="{{ f_money_mBuyPri }}" data-type="{{ N_mBuyPri }}" bindinput="handleFMoney" />
+        </view>
+      </view>
+    </view>
+    <!-- 现汇买入价 -->
+    <view class="item" hidden="{{ current !== N_fBuyPri }}">
+      <view class="item-tips">
+        <view class="item-tips-l">100 {{ name }} = {{ country_ex.fBuyPri }} 人民币</view>
+        <view class="item-tips-l">1 人民币 = {{ 100 / country_ex.fBuyPri}} {{ name }}</view>
+      </view>
+      <view class="item-calc">
+        <view class="item-calc-l">
+          <view class="item-calc-l-txt">人民币</view>
+          <input class="calc-input" type="digit" value="{{ rmb_fBuyPri }}" data-type="{{ N_fBuyPri }}" bindinput="handleRmb" />
+        </view>
+        <view class="item-calc-l">
+          <view class="item-calc-l-txt">{{ name }}</view>
+          <input class="calc-input" type="digit" value="{{ f_money_fBuyPri }}" data-type="{{ N_fBuyPri }}" bindinput="handleFMoney" />
+        </view>
+      </view>
+    </view>
+    <!-- 现钞卖出价 -->
+    <view class="item" hidden="{{ current !== N_mSellPri }}">
+      <view class="item-tips">
+        <view class="item-tips-l">100 {{ name }} = {{ country_ex.mSellPri }} 人民币</view>
+        <view class="item-tips-l">1 人民币 = {{ 100 / country_ex.mSellPri}} {{ name }}</view>
+      </view>
+      <view class="item-calc">
+        <view class="item-calc-l">
+          <view class="item-calc-l-txt">人民币</view>
+          <input class="calc-input" type="digit" value="{{ rmb_mSellPri }}" data-type="{{ N_mSellPri }}" bindinput="handleRmb" />
+        </view>
+        <view class="item-calc-l">
+          <view class="item-calc-l-txt">{{ name }}</view>
+          <input class="calc-input" type="digit" value="{{ f_money_mSellPri }}" data-type="{{ N_mSellPri }}" bindinput="handleFMoney" />
+        </view>
+      </view>
+    </view>
+    <!-- 现汇卖出价 -->
+    <view class="item" hidden="{{ current !== N_fSellPri }}">
+      <view class="item-tips">
+        <view class="item-tips-l">100 {{ name }} = {{ country_ex.fSellPri }} 人民币</view>
+        <view class="item-tips-l">1 人民币 = {{ 100 / country_ex.fSellPri}} {{ name }}</view>
+      </view>
+      <view class="item-calc">
+        <view class="item-calc-l">
+          <view class="item-calc-l-txt">人民币</view>
+          <input class="calc-input" type="digit" value="{{ rmb_fSellPri }}" data-type="{{ N_fSellPri }}" bindinput="handleRmb" />
+        </view>
+        <view class="item-calc-l">
+          <view class="item-calc-l-txt">{{ name }}</view>
+          <input class="calc-input" type="digit" value="{{ f_money_fSellPri }}" data-type="{{ N_fSellPri }}" bindinput="handleFMoney" />
+        </view>
+      </view>
+    </view>
+  </view>
+
+</view>
