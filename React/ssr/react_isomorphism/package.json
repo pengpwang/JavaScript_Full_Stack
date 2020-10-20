@@ -1,0 +1,30 @@
+{
+  "name": "react_isomorphism",
+  "version": "1.0.0",
+  "description": "react isomorphism framework",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./build/bundle.js",
+    "dev:build:server": "webpack --config webpack.server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react",
+    "isomorphism"
+  ],
+  "author": "alchemy <329109929@qq.com>",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "react": "^16.14.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.3",
+    "@babel/preset-env": "^7.12.1",
+    "@babel/preset-react": "^7.12.1",
+    "babel-loader": "^8.1.0",
+    "webpack": "^5.1.3",
+    "webpack-cli": "^4.1.0",
+    "webpack-node-externals": "^2.5.2"
+  }
+}
