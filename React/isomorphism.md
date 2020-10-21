@@ -4,6 +4,13 @@
 TODO:
 babel
 webpack
+react
+react-dom
+react-router-dom
+express
+redux
+react-redux
+redux-thunk
 
 
 
@@ -39,3 +46,11 @@ webpack
 
 客户端React
 
+路由机制：
+1. 浏览器端使用BrowerRouter, 服务器端使用StaticRouter
+2. 路由配置
+
+数据流：
+1. 
+
+css样式
