@@ -16,6 +16,7 @@
   "author": "alchemy <329109929@qq.com>",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.20.0",
     "express": "^4.17.1",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
@@ -29,6 +30,7 @@
     "@babel/preset-env": "^7.12.1",
     "@babel/preset-react": "^7.12.1",
     "babel-loader": "^8.1.0",
+    "cors": "^2.8.5",
     "nodemon": "^2.0.6",
     "npm-run-all": "^4.1.5",
     "webpack": "^5.1.3",
