@@ -51,6 +51,29 @@ redux-thunk
 2. 路由配置
 
 数据流：
-1. 
+1. 数据请求库 - 支持客户端及服务器端
 
 css样式
+
+SSR降级机制：
+1. SSR应用降级至SPA应用的时机？
+  - 服务端渲染流程中发生某些异常或全部异常？
+  - 大流量场景减少服务器负担
+2. 降级机制包括：
+  - URL或配置文件中的全局降级
+  - 服务器端渲染流程中发生异常
+
+服务端缓存：
+1. 与用户无关的接口和页面  -- 降低内容到达时间
+
+接入全链路追踪：
+
+性能优化：
+1. Static Generation v.s. Server-side Rendering
+
+部署：
+1. 静态资源(js, css, images, fonts 及 Static Generation)部署
+2. Server-side Rendering 部署
+
+
+

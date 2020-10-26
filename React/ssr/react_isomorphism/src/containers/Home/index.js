@@ -3,11 +3,18 @@ import { connect } from 'react-redux';
 import Header from '../../components/Header';
 import { getHomeList } from './store/actions';
 class Home extends React.Component {
+
+  getHomeNewsList() {
+    const { list } = this.props;
+    return list.map(item => <div key={item.id}>{ item.title }</div>)
+  }
+
   render() {
     return (
       <Fragment>
         <Header></Header>
         <div>Home! {this.props.name}</div>
+        { this.getHomeNewsList() }
         <button onClick={() => alert(1)}>click</button>
       </Fragment>
     );
@@ -19,6 +26,7 @@ class Home extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
+  list: state.home.newsList,
   name: state.home.name 
 });
 
