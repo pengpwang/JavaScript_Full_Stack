@@ -49,12 +49,16 @@ redux-thunk
 
 路由机制：
 1. 浏览器端使用BrowerRouter, 服务器端使用StaticRouter
-2. 路由配置
+2. 路由配置及多级路由配置
+3. 服务器端路由匹配及多级路由匹配；借助于 `react-router-config`
+4. 浏览器端及服务器端的路由渲染及多级路由渲染；借助于 `react-router-config`
+
 
 数据流：
 1. 数据请求库 - 支持客户端及服务器端
 2. 服务器端请求与客户端请求的不同处理
 3. 中间层数据请求代理
+4. 数据的注水及脱水
 
 css样式
 
@@ -77,6 +81,7 @@ SSR降级机制：
 部署：
 1. 静态资源(js, css, images, fonts 及 Static Generation)部署
 2. Server-side Rendering 部署
+
 
 
 

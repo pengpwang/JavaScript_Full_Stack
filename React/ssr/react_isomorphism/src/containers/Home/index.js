@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import Header from '../../components/Header';
 import { getHomeList } from './store/actions';
 class Home extends React.Component {
 
@@ -12,7 +11,6 @@ class Home extends React.Component {
   render() {
     return (
       <Fragment>
-        <Header></Header>
         <div>Home! {this.props.name}</div>
         { this.getHomeNewsList() }
         <button onClick={() => alert(1)}>click</button>

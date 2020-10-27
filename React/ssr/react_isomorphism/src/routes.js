@@ -2,16 +2,23 @@
 
 import React, { Fragment } from 'react';
 import { Route } from 'react-router-dom';
+import App from './containers/App';
 import Home from './containers/Home';
 import Login from './containers/Login';
 
 export default [
   {
     path: '/',
-    component: Home,
-    loadData: Home.loadData,
-    key: '/',
+    component: App,
+    key: '/App',
     routes: [
+      {
+        path: '/',
+        component: Home,
+        loadData: Home.loadData,
+        exact: true,
+        key: '/',
+      },
       {
         path: '/login',
         component: Login,
