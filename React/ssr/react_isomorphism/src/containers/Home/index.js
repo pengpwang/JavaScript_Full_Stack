@@ -21,8 +21,15 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getHomeList();
+    if(!this.props.list.length){
+      this.props.getHomeList();
+    }
   }
+}
+
+// loadData 函数负责在服务器端渲染之前，把这个路由需要的数据提前加载好
+Home.loadData = (store) => {
+  return store.dispatch(getHomeList())
 }
 
 const mapStateToProps = (state) => ({

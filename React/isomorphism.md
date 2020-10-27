@@ -7,6 +7,7 @@ webpack
 react
 react-dom
 react-router-dom
+react-router-config
 express
 redux
 react-redux
@@ -52,6 +53,8 @@ redux-thunk
 
 数据流：
 1. 数据请求库 - 支持客户端及服务器端
+2. 服务器端请求与客户端请求的不同处理
+3. 中间层数据请求代理
 
 css样式
 
@@ -75,5 +78,9 @@ SSR降级机制：
 1. 静态资源(js, css, images, fonts 及 Static Generation)部署
 2. Server-side Rendering 部署
 
+
+
+h5项目ssr难点及注意事项：
+1. 环境区分 - 服务端还是客户端
 
 

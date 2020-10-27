@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { CHANGE_HOME_LIST } from './contants';
 
 const changeHomeList = (list) => ({
@@ -7,11 +6,11 @@ const changeHomeList = (list) => ({
 });
 
 const getHomeList = () => {
-  return (dispatch) => {
-    axios.get('http://localhost:4000/api/news')
+  return (dispatch, getState, request) => {
+    return request.get('/api/news')
       .then(res => {
         dispatch(changeHomeList(res.data.data));
-      })
+      }).catch(e => console.log(111, e));
   }
 }
 
