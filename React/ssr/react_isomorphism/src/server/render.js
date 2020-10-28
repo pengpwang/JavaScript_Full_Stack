@@ -4,8 +4,7 @@ import { StaticRouter, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 
-export default (store, routes, req, res) => {
-  const context = {};
+export default (store, routes, req, context) => {
 
   const html = renderToString(
     <Provider store={store}>
@@ -18,10 +17,6 @@ export default (store, routes, req, res) => {
       </StaticRouter>
     </Provider>
   );
-
-  if(context.notFound){
-    res.statusCode = 404;
-  }
 
   return `
     <!DOCTYPE html>

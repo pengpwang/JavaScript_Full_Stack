@@ -10,7 +10,8 @@ const getHomeList = () => {
     return request.get('/api/news')
       .then(res => {
         dispatch(changeHomeList(res.data.data));
-      }).catch(e => console.log(111, e));
+      })
+      .catch(e => console.log(111, e)); // 错误处理，及日志记录
   }
 }
 

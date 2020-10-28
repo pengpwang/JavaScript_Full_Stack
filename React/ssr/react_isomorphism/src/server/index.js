@@ -25,13 +25,28 @@ app.get('*', (req, res) => {
   const promises = [];
   matchedRoutes.forEach(item => {
     if(item.route.loadData){
-      promises.push(item.route.loadData(store));
+      // 防止一个接口的失败，影响页面的渲染
+      // 不管调用接口是否失败，都让它成功
+      const promise = new Promise((resolve, reject) => {
+        item.route.loadData(store).then(resolve).then(resolve);
+      })
+      promises.push(promise);
     }
   });
 
   Promise.all(promises).then(() => {
-    res.send(render(store, routes, req, res));
-  });
+    const context = {};
+    const html = render(store, routes, req, context);
+
+    if(context.action === 'REPLACE'){
+      // 重定向
+      return res.redirect(301, context.url);
+    }else if(context.notFound){
+      res.statusCode = 404;
+    }
+
+    res.send(html);
+  })
 });
 
 app.listen(port, () => console.log(`react isomorphism app listening on port ${port}`));
