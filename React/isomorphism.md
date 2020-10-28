@@ -12,6 +12,9 @@ express
 redux
 react-redux
 redux-thunk
+css-loader
+style-loader
+isomorphic-style-loader
 
 promise
 
@@ -66,6 +69,9 @@ promise
 5. 服务端部分接口请求失败的处理  -- 日志记录
 
 css样式
+1. 服务器端使用isomorphic-style-loader，浏览器端使用style-loader
+2. 
+
 
 SSR降级机制：
 1. SSR应用降级至SPA应用的时机？
@@ -79,6 +85,8 @@ SSR降级机制：
 1. 与用户无关的接口和页面  -- 降低内容到达时间
 
 接入全链路追踪：
+1. 服务端接口请求报错日志记录
+
 
 性能优化：
 1. Static Generation v.s. Server-side Rendering

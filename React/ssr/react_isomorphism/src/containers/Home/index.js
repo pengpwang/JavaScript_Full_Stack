@@ -1,6 +1,8 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { getHomeList } from './store/actions';
+
+import './style.css';
 class Home extends React.Component {
 
   getHomeNewsList() {
