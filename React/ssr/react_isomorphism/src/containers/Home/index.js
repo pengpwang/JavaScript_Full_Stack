@@ -1,10 +1,17 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { getHomeList } from './store/actions';
+import withStyles from '../../withStyles';
 
-import './style.css';
+
+import styles from './style.module.css';
+
 class Home extends React.Component {
-
+  // componentWillMount(){
+  //   if(this.props.staticContext){
+  //     console.log(styles._getCss());
+  //   }
+  // }
   getHomeNewsList() {
     const { list } = this.props;
     return list.map(item => <div key={item.id}>{ item.title }</div>)
@@ -12,11 +19,11 @@ class Home extends React.Component {
 
   render() {
     return (
-      <Fragment>
+      <div className={styles.wrap}>
         <div>Home! {this.props.name}</div>
         { this.getHomeNewsList() }
         <button onClick={() => alert(1)}>click</button>
-      </Fragment>
+      </div>
     );
   }
 
@@ -43,4 +50,4 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(Home, styles));

@@ -17,12 +17,14 @@ const serverConfig = {
       use: ['isomorphic-style-loader', {
         loader: 'css-loader',
         options: {
-          importLoaders: 1,
+          // importLoaders: 1,
           // esModule: true,
-          modules: { auto: true }
           // modules: {
+          //   compileType: 'module',
+          //   auto: true,
           //   localIdentName: '[name]_[local]_[hash:base64:5]'
           // }
+          modules: true,
         }
       }]
     }]
