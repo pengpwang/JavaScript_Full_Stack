@@ -19,7 +19,7 @@ app.use('/api', proxy('http://localhost:4000', {
 }));
 
 app.get('*', (req, res) => {
-  const store = getStore();
+  const store = getStore(req);
   // 多级路由匹配
   const matchedRoutes = matchRoutes(routes, req.path);
   const promises = [];
@@ -30,7 +30,7 @@ app.get('*', (req, res) => {
   });
 
   Promise.all(promises).then(() => {
-    res.send(render(store, routes, req));
+    res.send(render(store, routes, req, res));
   });
 });
 

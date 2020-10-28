@@ -5,6 +5,7 @@ import { Route } from 'react-router-dom';
 import App from './containers/App';
 import Home from './containers/Home';
 import Login from './containers/Login';
+import NotFound from './containers/NotFound';
 
 export default [
   {
@@ -18,11 +19,13 @@ export default [
         loadData: Home.loadData,
         exact: true,
         key: '/',
-      },
-      {
+      },{
         path: '/login',
         component: Login,
         key: '/login'
+      },{
+        component: NotFound,
+        key: '/notfound'
       }
     ]
   }

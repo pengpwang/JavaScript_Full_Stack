@@ -17,4 +17,18 @@ app.get('/api/news', (req, res) => {
   })
 });
 
+app.get('/api/login', (req, res) => {
+  res.json({
+    code: 0,
+    data: {}
+  })
+});
+
+app.get('/api/logout', (req, res) => {
+  res.json({
+    code: 0,
+    data: {}
+  })
+});
+
 app.listen(4000, () => console.log(`server api listening 4000`));
