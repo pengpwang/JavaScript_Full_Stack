@@ -5,12 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
+  <link rel="stylesheet" href="./demo.css"></link>
 </head>
 <body>
-  <!-- 已知如下代码，如何修改才能让图片宽度为 300px ？注意下面代码不可修改 -->
+  <!-- 一、已知如下代码，如何修改才能让图片宽度为 300px ？注意下面代码不可修改 -->
   <img style="width: 480px!important;" src="./img/1.jpeg" />
   <!-- 1. max-width: 300px; max-width可以覆盖掉!important -->
   <!-- 2. transform: scale(0.625,0.625) -->
   <!-- 3. box-sizing: border-box;padding: 0 90px; -->
+
+  <img src="./img/not_found.png" alt="此图无，测试图片加载不出来" onerror="this.classList.add('error')" />
+
 </body>
 </html>
