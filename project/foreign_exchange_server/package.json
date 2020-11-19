@@ -1,0 +1,15 @@
+{
+  "name": "foreign_exchange_server",
+  "version": "1.0.0",
+  "description": "foreign_exchange_server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "alchemy <329109929@qq.com>",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.0",
+    "express": "^4.17.1"
+  }
+}
