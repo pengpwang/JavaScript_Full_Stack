@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<!-- saved from url=(0053)https://coding.imooc.com/class/chapter/95.html#Anchor -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style class="vjs-styles-defaults">
+      .video-js {
+        width: 300px;
+        height: 150px;
+      }
+
+      .vjs-fluid {
+        padding-top: 56.25%
+      }
+    </style>
+    
+    <title>Node.js项目线上服务器部署与发布-课程章节</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta property="qc:admins" content="77103107776157736375">
+    <meta property="wb:webmaster" content="c4f857219bfae3cb">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta http-equiv="Cache-Control" content="no-transform ">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="keywords" content="Node.js项目部署">
+    <meta name="description" content="对整个部署思路进行全流程介绍，通过 5 个不同类型项目，来演示从本地的仓库到最终线上稳定运行的整个项目部署发布流程，来帮助始终编程在一线的前端或者后端工程师">
+    
+    <link rel="stylesheet" href="./Node.js项目线上服务器部署与发布-课程章节_files/moco.min.css" type="text/css">
+    
+    <style type="text/css">
+    .moco-modal-info {
+        font-size: 14px;
+        line-height: 20px;
+    }
+    </style>
+    
+
+
+
+
+
+    <script src="./Node.js项目线上服务器部署与发布-课程章节_files/push.js"></script><script src="./Node.js项目线上服务器部署与发布-课程章节_files/hm.js"></script><script async="" src="./Node.js项目线上服务器部署与发布-课程章节_files/sensorsdata.min.js" charset="UTF-8"></script><script src="./Node.js项目线上服务器部署与发布-课程章节_files/init.js"></script>
+    <script type="text/javascript">
+        var OP_CONFIG={"module":"class","page":"chapter","userout":0,"usercaution":"","userInfo":{"uid":358377}};
+        OP_CONFIG.isLogin = 1;
+        var isLogin = 1;
+        var _msg_unread = 0; 
+        var _not_unread = 0; 
+        var _cartFlag = 0;
+        var seajsTimestamp="v=202011181134";
+            </script>
+    
+    
+        <script type="text/javascript">
+    
+    eval(function(p,a,c,k,e,d){e=function(c){return(c<a?"":e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)d[e(c)]=k[c]||e(c);k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1;};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p;}('!4(){3 b={};3 d=0;3 5=[{c:\'//k.p.h/k/m/K/L.q\',6:0},{c:\'//m.p.h/I/J-O.q\',6:0}];3 u=4(){3 j,n=e P("(^| )"+"l=([^;]*)(;|$)");9(j=r.s.M(n)){o N(j[2])}D{o C}};3 A=4(t){3 B=u();3 8=e H();8.G(8.F()+E*v*v*10);r.s="l="+t+";13="+8.14()+";15=/;T=U.h";9(t&&t!=B){R.Y.Z()}};3 x=4(i){3 7=e X();7.V=4(){W(b[i]);b[i]=C;a(i,0)};7.Q=4(){a(i,1)};b[i]=S(4(){7.z="";a(i,1)},11);7.z=5[i].c+"?t="+12.16()};3 a=4(y,6){d++;5[y].6=6;9(d==5.f){3 g=0;w(3 i=0;i<5.f;i++){9(5[i].6==1){g=1}}A(g)}};w(3 i=0;i<5.f;i++){x(i)}}()',62,69,'|||var|function|urls|flag|imgobj|exp|if|callback|timer|url|count|new|length|error|com||arr|static|IMCDNS|img|reg|return|mukewang|png|document|cookie||getcookie|60|for|checkCdn|index|src|setcookie|_0|null|else|24|getTime|setTime|Date|images|unknow|common|logo|match|unescape|80|RegExp|onerror|window|setTimeout|domain|imooc|onload|clearTimeout|Image|location|reload|1000|3000|Math|expires|toGMTString|path|random'.split('|'),0,{}))
+    
+    </script>
+    <link rel="stylesheet" href="./Node.js项目线上服务器部署与发布-课程章节_files/saved_resource" type="text/css">
+<script src="./Node.js项目线上服务器部署与发布-课程章节_files/share.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="/static/lib/fingerprintjs2/fingerprintjs2.min.js" src="./Node.js项目线上服务器部署与发布-课程章节_files/fingerprintjs2.min.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="/static/lib/login-regist/login-regist.js" src="./Node.js项目线上服务器部署与发布-课程章节_files/login-regist.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="common/js/chat" src="./Node.js项目线上服务器部署与发布-课程章节_files/chat.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="common/js/suggest" src="./Node.js项目线上服务器部署与发布-课程章节_files/suggest.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="common/js/cart" src="./Node.js项目线上服务器部署与发布-课程章节_files/cart.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="common/js/complete_user_info" src="./Node.js项目线上服务器部署与发布-课程章节_files/complete_user_info.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="common/js/userinfo" src="./Node.js项目线上服务器部署与发布-课程章节_files/userinfo.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="common/js/dist-zhuge" src="./Node.js项目线上服务器部署与发布-课程章节_files/dist-zhuge.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="common/js/navsearch" src="./Node.js项目线上服务器部署与发布-课程章节_files/navsearch.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="common/js/advertiseCheck" src="./Node.js项目线上服务器部署与发布-课程章节_files/advertiseCheck.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="class/index" src="./Node.js项目线上服务器部署与发布-课程章节_files/index.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="class/package/index" src="./Node.js项目线上服务器部署与发布-课程章节_files/index(1).js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="class/chapter/index" src="./Node.js项目线上服务器部署与发布-课程章节_files/index(2).js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="class/chapter/player" src="./Node.js项目线上服务器部署与发布-课程章节_files/player.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="jqueryValidate" src="./Node.js项目线上服务器部署与发布-课程章节_files/jquery.validate.min.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="/static/module/pay/common/js/cookie.js" src="./Node.js项目线上服务器部署与发布-课程章节_files/cookie.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="/static/lib/html2canvas/html2canvas.min.js" src="./Node.js项目线上服务器部署与发布-课程章节_files/html2canvas.min.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="/static/lib/scroll/scroll.js" src="./Node.js项目线上服务器部署与发布-课程章节_files/scroll.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="//moco.imooc.com/mocoplayer/3.0.4/mocoplayer.js" src="./Node.js项目线上服务器部署与发布-课程章节_files/mocoplayer.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="/static/lib/login-regist/login-view.js" src="./Node.js项目线上服务器部署与发布-课程章节_files/login-view.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="placeholder" src="./Node.js项目线上服务器部署与发布-课程章节_files/placeholder.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="socketio" src="./Node.js项目线上服务器部署与发布-课程章节_files/socket.io.min.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="modalbutton" src="./Node.js项目线上服务器部署与发布-课程章节_files/modal.button.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="autocomplete" src="./Node.js项目线上服务器部署与发布-课程章节_files/autocomplete.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="/static/lib/util/core.js" src="./Node.js项目线上服务器部署与发布-课程章节_files/core.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="/static/lib/jquery-qrcode/jquery.qrcode.min.js" src="./Node.js项目线上服务器部署与发布-课程章节_files/jquery.qrcode.min.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="/static/lib/jquery-nanoscroller/jquery.nanoscroller.js" src="./Node.js项目线上服务器部署与发布-课程章节_files/jquery.nanoscroller.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="/static/lib/login-regist/tpl/signup.js" src="./Node.js项目线上服务器部署与发布-课程章节_files/signup.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="/static/lib/login-regist/tpl/signin.js" src="./Node.js项目线上服务器部署与发布-课程章节_files/signin.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="/static/lib/login-regist/tpl/erweima.js" src="./Node.js项目线上服务器部署与发布-课程章节_files/erweima.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="/static/lib/login-regist/tpl/phoneVerity.js" src="./Node.js项目线上服务器部署与发布-课程章节_files/phoneVerity.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="/static/lib/login-regist/tpl/registerFinished.js" src="./Node.js项目线上服务器部署与发布-课程章节_files/registerFinished.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="/static/lib/login-regist/tpl/emailVerity.js" src="./Node.js项目线上服务器部署与发布-课程章节_files/emailVerity.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="/static/lib/login-regist/tpl/email_RegisterFinished.js" src="./Node.js项目线上服务器部署与发布-课程章节_files/email_RegisterFinished.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="/static/lib/login-regist/tpl/phoneValidate.js" src="./Node.js项目线上服务器部署与发布-课程章节_files/phoneValidate.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="/static/lib/login-regist/tpl/phoneSignin.js" src="./Node.js项目线上服务器部署与发布-课程章节_files/phoneSignin.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="/static/lib/login-regist/tpl/areacode.js" src="./Node.js项目线上服务器部署与发布-课程章节_files/areacode.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="/static/lib/util/cookie.js" src="./Node.js项目线上服务器部署与发布-课程章节_files/cookie(1).js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="/static/lib/backbone/backbone-1.0.0.min.js" src="./Node.js项目线上服务器部署与发布-课程章节_files/backbone-1.0.0.min.js"></script><link rel="stylesheet" href="./Node.js项目线上服务器部署与发布-课程章节_files/share_style0_16.css"><link href="./Node.js项目线上服务器部署与发布-课程章节_files/mocoplayer.css" rel="stylesheet" type="text/css"><script src="./Node.js项目线上服务器部署与发布-课程章节_files/mocoplayer.html5.js" type="text/javascript"></script></head>
+<body class="" style="position: initial; width: 100%; top: -1185px; height: auto;">
+
+<!--顶部广告位-->
+<div id="globalTopBanner"></div>
+
+<div id="new_header">
+    <div class="page-container new-header" id="nav">
+        <ul class="nav-item">
+            <li><a href="https://www.imooc.com/" target="_self" class="imooc">慕课网首页</a></li>
+            <li><a href="https://www.imooc.com/course/list" target="_self">免费课程</a></li>
+            <li><a href="https://coding.imooc.com/" class="active" target="_self">实战课程</a></li>
+            <li><a href="https://class.imooc.com/" target="_self">金职位<i class="icn-new"></i></a></li>
+            <li><a href="https://www.imooc.com/wiki" target="_self">慕课教程</a></li>
+            <li><a href="https://www.imooc.com/read" target="_self">专栏</a></li>
+            <li><a href="https://www.imooc.com/article" target="_self">手记</a></li>
+            <!-- <li><a href="//job.imooc.com" target="_self">猿聘<i class="icn-new"></i></a></li> -->
+        </ul>
+        <div class="header-right clearfix">
+            <div class="app-download" id="js-app-load">
+                <a href="https://www.imooc.com/mobile/app" target="_blank">下载APP</a>
+                <div class="app-load-box clearfix js-load-box">
+                    <div class="mobile-load-box">
+                        <h4>慕课网APP - 随时随地学编程</h4>
+                        <img src="./Node.js项目线上服务器部署与发布-课程章节_files/appload.png" class="l">
+                        <div class="r">
+                            <a class="app-load-btn" href="https://itunes.apple.com/cn/app/mu-ke-wang/id722179140?mt=8" target="_blank"><i class="icon-apple"></i>App Store下载</a>
+                            <a class="app-load-btn" href="https://www.imooc.com/mobile/appdown" target="_blank"><i class="icon-android"></i>Android下载</a>
+                            <p>扫描下载慕课网APP</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="search-box">
+                <a href="javascript:void(0);" id="common-nav-search">
+                    <i class="imv2-search2"></i>
+                </a>
+                <div class="input-search hide" id="common-input-search">
+                    <div class="input-box">
+                        <input type="text" class="nav-search-input" autocomplete="off">
+                        <a href="javascript:void(0);" class="nav-searchBtn js-nav-searchBtn">
+                            <i class="imv2-search2"></i>
+                        </a>
+                    </div>
+                    <div class="nav-search-box hide">
+                        <div class="hot">
+                            <h2>热搜</h2>
+                            <div class="hot-box"><a href="javascript:void(0)" class="hot-item js-history-search">Vue</a><a href="javascript:void(0)" class="hot-item js-history-search">Python</a><a href="javascript:void(0)" class="hot-item js-history-search">Java</a><a href="javascript:void(0)" class="hot-item js-history-search">flutter</a><a href="javascript:void(0)" class="hot-item js-history-search">springboot</a><a href="javascript:void(0)" class="hot-item js-history-search">docker</a><a href="javascript:void(0)" class="hot-item js-history-search">React</a><a href="javascript:void(0)" class="hot-item js-history-search">小程序</a></div>
+                        </div>
+                        <div class="history hide">
+                            <h2>最近搜索<a href="javascript:void(0);" class="history-clear js-clear-history">清空</a></h2>
+                            <div class="history-box">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="nav-correlate-box hide">
+                        <div class="correlate">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="shop-cart" id="shop-cart">
+                <a href="https://order.imooc.com/pay/cart" class="shop-cart-icon" target="_blank">
+                <span class="imv2-shopping-cart2 js-endcart"></span><span class="shopping_icon js-cart-num" data-ordernum="0" data-cartnum="0" data-prevnum="0" style="display: none">0</span>
+                </a>
+                <div class="my-cart" id="js-my-cart"></div>
+            </div>
+                        <div id="login-area">
+                <ul class="clearfix logined">
+                    <li class="remind_warp">
+                        <i class="msg_remind" style="display: inline;"></i>
+                        <a target="_blank" href="https://www.imooc.com/u/358377/notices">
+                            <i class="imv2-bell1"></i>
+                        </a>
+                    </li>
+                    <li class="user-mycourse-box">
+                        <a class="user-card-item js-header-courseurl" href="https://www.imooc.com/u/index/allcourses" target="_self">
+                            <span>我的课程</span>
+                        </a>
+                    </li>
+                    <li class="user-card-box" id="header-user-card">
+                        <a id="header-avator" class="user-card-item js-header-avator" action-type="my_menu" href="https://www.imooc.com/u/index/allcourses" target="_self">
+                            <img width="40" height="40" src="./Node.js项目线上服务器部署与发布-课程章节_files/542fdc630001943c01800180-100-100.jpg">
+                            <i class="myspace_remind" style="display: none;"></i>
+                            <span style="display: none;">动态提醒</span>
+                        </a>
+                        <div class="g-user-card"><div class="card-inner">                        <div class="card-top clearfix">                            <a href="https://www.imooc.com/u/index/allcourses" class="l"><img src="./Node.js项目线上服务器部署与发布-课程章节_files/542fdc630001943c01800180-100-100.jpg" alt="斐然duy"></a>                            <div class="card-top-right-box l">                                <a href="https://www.imooc.com/u/index/allcourses"><span class="name text-ellipsis">斐然duy</span></a>                                <div class="meta">                                    <a href="https://www.imooc.com/u/index/experience">经验<b id="js-user-mp">3,727</b></a>                                    <a href="https://www.imooc.com/u/index/credit">积分<b id="js-user-credit">2</b></a>                                </div>                            </div>                        </div>                        <div class="user-center-box">                            <ul class="clearfix">                                <li class="l"><a href="https://www.imooc.com/u/index/allcourses" target="_blank"><span class="user-center-icon sz-class"></span>我的课程</a></li>                                <li class="l">                                    <a href="https://order.imooc.com/myorder" target="_blank"><span class="user-center-icon sz-receipt"></span>订单中心</a>                                                                    </li>                                <li class="l"><a href="https://www.imooc.com/mall/index" target="_blank"><span class="user-center-icon sz-score_shop"></span>积分商城</a></li>                                <li class="l"><a href="https://www.imooc.com/user/setbindsns" target="_blank"><span class="user-center-icon sz-settings"></span>个人设置</a></li>                            </ul>                        </div><div class="card-sets clearfix"><a href="https://coding.imooc.com/passport/user/logout?referer=//www.imooc.com" class="l">安全退出</a></div>                    </div></div>
+                    </li>
+                </ul>
+            </div>
+                    </div>
+    </div>
+</div>
+
+
+
+
+
+
+<script>
+	var isMarketingPage = 0;
+	var _name = "Node.js项目线上服务器部署与发布";
+	var _cid = "95";
+	var _pirce = "158.00";
+		</script>
+
+<script>
+    var posterPic = '';
+</script>
+
+
+
+
+
+
+
+
+
+<div class="course-infos-top " style="background-image:url(//img1.sycdn.imooc.com/szimg/5b4f2f280001964d20000520.jpg)">
+	<div class="info-wrap">
+		<div class="path">
+			<a href="https://www.imooc.com/">
+				<i class="imv2-imooc"></i>
+			</a>
+			<i class="split">/</i>
+			<a href="https://coding.imooc.com/">实战</a>
+			<i class="split">/</i>
+			<span>Node.js项目线上服务器部署与发布</span>
+		</div>
+		<div class="extra">
+			<div class="course-collect clearfix js-course-collect l" data-type="0" data-cid="95">
+				<i class="imv2-star j"></i><span>收藏</span>
+			</div>
+			<!-- 分销的分享不同于普通分享 -->
+			<div class="share-action l bdsharebuttonbox bg bdshare-button-style0-16" data-bd-bind="1605893977632">
+									<a href="javascript:;" class="share sz-weixin" data-cmd="weixin" title="分享到微信">
+					</a>
+					<a href="javascript:;" class="share sz-weibo" data-cmd="tsina" title="分享到新浪微博">
+					</a>
+					<a href="javascript:;" data-cmd="qzone" class="share sz-qq" title="分享到QQ空间">
+					</a>
+							</div>
+		</div>
+
+		<div class="title-box">
+			<h1>Node.js线上服务器部署与发布</h1>
+										<h2>阿里云部署Node.js+MongoDB的应用项目，跨越成功的最后一步</h2>
+					</div>
+		
+		<div class="hide">
+			<h1 class="l">Node.js项目线上服务器部署与发布</h1>
+		</div>
+
+	</div>
+					<div class="fixed-wrap " style="bottom:-64px">
+					<!-- 大活动倒计时 -->
+			<div class="timeout-bigactivity js-timeout-bigactivity" data-endtime="" data-time="1605893976"></div>
+				<div class="con">
+							<!-- 不在大活动时间内才显示这个图标 -->
+														
+									<!-- 间距调整 -->
+									
+						<div class="info-bar clearfix" style="margin-top:20px">
+					<span>难度</span>
+					<span class="nodistance">中级</span>
+					<i class="imv2-dot_samll"></i>
+					<span>时长</span>
+					<span class="nodistance"> 7小时</span>
+					<i class="imv2-dot_samll"></i>
+					<span>学习人数</span>
+					<span class="nodistance">1747</span>
+					<i class="imv2-dot_samll"></i>
+					<span>综合评分</span>
+					<span class="nodistance">9.96</span>
+														</div>
+			<div class="btns js-btns" data-pay="1">
+															<a href="javascript:;" class="disable-btn" data-cid="95" data-pay="1">
+							<span>报名人数已满</span>
+						</a>
+																		</div>
+		</div>
+	</div>
+</div>
+
+<div class="course-infos-t ">
+<div id="Anchor"></div>
+<div class="comp-tab-t js-comp-tab">
+	<ul class="clearfix">
+		<li class="comp-tab-item-first comp-tab-item  ">
+			<a href="https://coding.imooc.com/class/95.html#Anchor">课程介绍</a>
+			<div class="borderLine"></div>
+		</li>
+				<li class="comp-tab-item active">
+			<a href="javascript:void(0)" class="zhuge_chapter" data-href="/class/chapter/95.html#Anchor">章节目录<img class="try-mark" src="./Node.js项目线上服务器部署与发布-课程章节_files/try-mark.png" alt=""></a>
+			<div class="borderLine"></div>
+		</li>
+		
+				<li class="comp-tab-item ">
+			<a href="https://coding.imooc.com/class/95.html#Envir">环境参数</a>
+
+					</li>
+					</ul>
+</div>
+
+<div class="js-fixed course-fixed-nav hide" style="display: block;">
+	<h3 class="fixed-course-name" title="Node.js项目线上服务器部署与发布">Node.js项目线上服务器部署与发布</h3>
+
+	<ul class="fixed-nav clearfix">
+		<li class="fixed-nav-item ">
+			<a href="https://coding.imooc.com/class/95.html#Anchor">课程介绍</a>
+			<div class="borderLine"></div>
+		</li>
+				<li class="fixed-nav-item active">
+			<a href="javascript:void(0)" class="zhuge_chapter" data-href="/class/chapter/95.html#Anchor">章节目录<img class="try-mark" src="./Node.js项目线上服务器部署与发布-课程章节_files/try-mark.png" alt=""></a>
+			<div class="borderLine"></div>
+		</li>
+						<li class="fixed-nav-item ">
+			<a href="https://coding.imooc.com/class/95.html#Envir">环境参数</a>
+			<div class="borderLine"></div>
+		</li>
+		 			</ul>
+
+	<div class="buy-con">
+									<a href="javascript:;" class="r fixed-dis">
+					报名人数已满
+				</a>
+						</div>
+</div>
+
+
+<div class="infolayout clearfix">
+	
+<div class="w clearfix chapter-div">
+    
+	<div class="comp-tabs-pannel class-tab-pannel course-cmt">
+		<div class="chapter-box">
+			<div class="comp-tabs-pannel  outline-list">
+			  				<ul class="chapter-ul">
+				  					<li class="chapter clearfix">
+					  <i class="chapter-icon sz-chapter"></i>
+					  <div class="chapter-bd l">
+						  <h5 class="name">第1章 课程预热
+                                                      </h5>
+						  <p class="desc">对整个部署思路进行全流程介绍，通过 5 个不同类型项目，来演示从本地的仓库到最终线上稳定运行的整个项目部署发布流程，来帮助始终编程在一线的前端或者后端工程师，甚至是有 Coding 能力的产品经理，从操作流程和架构形态上，掌握从零开始的项目上线环节，掌握这关键一步，跨过去前端到后端，本地到线上，开发到生产...</p>
+						  						  <ul>
+						  							  	
+                            <li>
+                                                                    <i class="imv2-video"></i>
+                                                                <span class="title_info js-watchTrigger">1-1 为什么是全栈最后一公里</span>
+                                                                                                                                <span class="watch-free js-watchForFree" data-index="0">试看</span>
+                                <input type="hidden" value="3087">
+                                                                                            </li>
+						  							  	
+                            <li>
+                                                                    <i class="imv2-video"></i>
+                                                                <span class="title_info ">1-2 搭建线上生产环境需要做什么</span>
+                                                                                                                            </li>
+						  							  </ul>
+						  					  </div>
+
+					</li>
+				  					<li class="chapter clearfix">
+					  <i class="chapter-icon sz-chapter"></i>
+					  <div class="chapter-bd l">
+						  <h5 class="name">第2章 待部署的 5 个本地 Nodejs 项目
+                                                      </h5>
+						  <p class="desc">分别介绍五个技术架构和产品形态的项目背景，一个 Nodejs 静态网站，普通的带数据库电影网站，手机 App 场景下的后端项目如何通过服务器跟应用进行数据通信交互的场景，小程序的运行平台，基于此平台下需要提供的 API 服务如何部署，公众号的前端后端及消息机制下搭建的功能形态，部署需要注意的事项，以及一个生动有...</p>
+						  						  <ul>
+						  							  	
+                            <li>
+                                                                    <i class="imv2-video"></i>
+                                                                <span class="title_info ">2-1 快速本地搭建一个纯静态简易站点</span>
+                                                                                                                            </li>
+						  							  	
+                            <li>
+                                                                    <i class="imv2-video"></i>
+                                                                <span class="title_info ">2-2 Nodejs 电影网站项目上线准备</span>
+                                                                                                                            </li>
+						  							  	
+                            <li>
+                                                                    <i class="imv2-video"></i>
+                                                                <span class="title_info ">2-3 狗狗说 React Native 开发的 App 后台项目分析</span>
+                                                                                                                            </li>
+						  							  	
+                            <li>
+                                                                    <i class="imv2-video"></i>
+                                                                <span class="title_info ">2-4 微信小程序的项目介绍</span>
+                                                                                                                            </li>
+						  							  	
+                            <li>
+                                                                    <i class="imv2-video"></i>
+                                                                <span class="title_info ">2-5 电影微信公众号的项目概况</span>
+                                                                                                                            </li>
+						  							  	
+                            <li>
+                                                                    <i class="imv2-video"></i>
+                                                                <span class="title_info ">2-6 从一个故事理解整个部署思路</span>
+                                                                                                                            </li>
+						  							  </ul>
+						  					  </div>
+
+					</li>
+				  					<li class="chapter clearfix">
+					  <i class="chapter-icon sz-chapter"></i>
+					  <div class="chapter-bd l">
+						  <h5 class="name">第3章 选购域名服务器及备案
+                                                      </h5>
+						  <p class="desc">各种方法论和躲不过去的流程，介绍哪些域名服务商相对比较靠谱，选取域名可以遵从哪些规则，选择服务器的经验和方法，以阿里云主机为例演示选择配置和购买流程，域名备案需要填写哪些信息，递交哪些材料，申请流程是怎样的，产品能生存的软环境是每一个产品开发人员必须了然于胸的硬经验。...</p>
+						  						  <ul>
+						  							  	
+                            <li>
+                                                                    <i class="imv2-video"></i>
+                                                                <span class="title_info js-watchTrigger">3-1 选购域名的经验分享</span>
+                                                                                                                                <span class="watch-free js-watchForFree" data-index="1">试看</span>
+                                <input type="hidden" value="3109">
+                                                                                            </li>
+						  							  	
+                            <li>
+                                                                    <i class="imv2-video"></i>
+                                                                <span class="title_info js-watchTrigger">3-2 主机厂商对比及选购阿里云主机</span>
+                                                                                                                                <span class="watch-free js-watchForFree" data-index="2">试看</span>
+                                <input type="hidden" value="3110">
+                                                                                            </li>
+						  							  	
+                            <li>
+                                                                    <i class="imv2-video"></i>
+                                                                <span class="title_info ">3-3 域名备案流程走起来</span>
+                                                                                                                            </li>
+						  							  </ul>
+						  					  </div>
+
+					</li>
+				  					<li class="chapter clearfix">
+					  <i class="chapter-icon sz-chapter"></i>
+					  <div class="chapter-bd l">
+						  <h5 class="name">第4章 远程登录服务器
+                                                      </h5>
+						  <p class="desc">从本地命令行终端 iTerm2 或者 Putty 连接并登录到外网的服务器，配置用以发布和管理应用的用户，取代 root 超级管理员执行环境，配置更安全的私钥加密无密码验证登录。</p>
+						  						  <ul>
+						  							  	
+                            <li>
+                                                                    <i class="imv2-video"></i>
+                                                                <span class="title_info ">4-1 第一次 ssh 远程登陆服务器</span>
+                                                                                                                            </li>
+						  							  	
+                            <li>
+                                                                    <i class="imv2-video"></i>
+                                                                <span class="title_info ">4-2 配置 root 及应用账号权限</span>
+                                                                                                                            </li>
+						  							  	
+                            <li>
+                                                                    <i class="imv2-video"></i>
+                                                                <span class="title_info ">4-3 配置本地无密码 SSH 登录</span>
+                                                                                                                            </li>
+						  							  </ul>
+						  					  </div>
+
+					</li>
+				  					<li class="chapter clearfix">
+					  <i class="chapter-icon sz-chapter"></i>
+					  <div class="chapter-bd l">
+						  <h5 class="name">第5章 增强服务器安全等级
+                                                      </h5>
+						  <p class="desc">修改服务修改服务器的 22 端口，取消密码登录，增大服务器的破解难度，配置 IPTables 防火墙规则，通过 Fail2Ban 增强服务器的防御动作，提高服务器的安全系数，对整个线上服务器进行各种安全防护的增强器的 22 端口，取消密码登录，增大服务器的破解难度。...</p>
+						  						  <ul>
+						  							  	
+                            <li>
+                                                                    <i class="imv2-video"></i>
+                                                                <span class="title_info ">5-1 修改服务器默认登录端口</span>
+                                                                                                                            </li>
+						  							  	
+                            <li>
+                                                                    <i class="imv2-video"></i>
+                                                                <span class="title_info ">5-2 配置 iptables 和 Fail2Ban 增强安全防护</span>
+                                                                                                                            </li>
+						  							  </ul>
+						  					  </div>
+
+					</li>
+				  					<li class="chapter clearfix">
+					  <i class="chapter-icon sz-chapter"></i>
+					  <div class="chapter-bd l">
+						  <h5 class="name">第6章 搭建 Nodejs 生产环境
+                                                      </h5>
+						  <p class="desc">Ubunbu 服务器上通过 nvm 安装及管理 Nodejs 版本，以及 nvm 全局模块使用中可能遇到的问题解决思路，安装 PM2 并简单介绍 PM2 的基本使用和它生产环境中的角色。</p>
+						  						  <ul>
+						  							  	
+                            <li>
+                                                                    <i class="imv2-video"></i>
+                                                                <span class="title_info ">6-1 搭建服务器的 Nodejs 环境</span>
+                                                                                                                            </li>
+						  							  	
+                            <li>
+                                                                    <i class="imv2-video"></i>
+                                                                <span class="title_info ">6-2 借助 pm2 让 Nodejs 服务常驻</span>
+                                                                                                                            </li>
+						  							  </ul>
+						  					  </div>
+
+					</li>
+				  					<li class="chapter clearfix">
+					  <i class="chapter-icon sz-chapter"></i>
+					  <div class="chapter-bd l">
+						  <h5 class="name">第7章 配置 Nginx 实现反向代理
+                                                      </h5>
+						  <p class="desc">安装并配置 Nginx 的 upstream，端口的映射转发给后台的 Nodejs 服务，实现服务的识别和转发。</p>
+						  						  <ul>
+						  							  	
+                            <li>
+                                                                    <i class="imv2-video"></i>
+                                                                <span class="title_info ">7-1  配置 Nginx 反向代理 Nodejs 端口</span>
+                                                                                                                            </li>
+						  							  </ul>
+						  					  </div>
+
+					</li>
+				  					<li class="chapter clearfix">
+					  <i class="chapter-icon sz-chapter"></i>
+					  <div class="chapter-bd l">
+						  <h5 class="name">第8章 利用 DNSPod 管理域名解析
+                                                      </h5>
+						  <p class="desc">更改域名的 DNS 根服务器，为域名指定一个新的解析平台，统一管理；学习不同的解析类型，增加多条解析规则，为不同类型的资源和服务配置 A 记录和 CNAME。</p>
+						  						  <ul>
+						  							  	
+                            <li>
+                                                                    <i class="imv2-video"></i>
+                                                                <span class="title_info ">8-1 更改域名的 DNS 根服务器</span>
+                                                                                                                            </li>
+						  							  	
+                            <li>
+                                                                    <i class="imv2-video"></i>
+                                                                <span class="title_info ">8-2 配置解析项目的域名 A 记录和 CNAME</span>
+                                                                                                                            </li>
+						  							  </ul>
+						  					  </div>
+
+					</li>
+				  					<li class="chapter clearfix">
+					  <i class="chapter-icon sz-chapter"></i>
+					  <div class="chapter-bd l">
+						  <h5 class="name">第9章 服务器配置安装 MongoDB
+                                                      </h5>
+						  <p class="desc">在 Ubuntu 14.04 上加速安装 MongoDB 特定版本，学习使用 mongodump mongorestore mongoexport mongoimport 来实现单表单库导入导出，从线上远程管理配置 Mongodb 的读写和备份权限，实现生产环境下垮服务器之间的数据迁移流程，结合系统 crontab bash 脚本 mongodump 和备份角色实现定时备份，通过 Node...</p>
+						  						  <ul>
+						  							  	
+                            <li>
+                                                                    <i class="imv2-video"></i>
+                                                                <span class="title_info ">9-1 在 Ubuntu 14.04 上安装 MongoDB</span>
+                                                                                                                            </li>
+						  							  	
+                            <li>
+                                                                    <i class="imv2-video"></i>
+                                                                <span class="title_info ">9-2 往线上 MongoDB 导入单表数据或数据库</span>
+                                                                                                                            </li>
+						  							  	
+                            <li>
+                                                                    <i class="imv2-video"></i>
+                                                                <span class="title_info ">9-3 为上线项目配置 MongoDB 数据库读写权限</span>
+                                                                                                                            </li>
+						  							  	
+                            <li>
+                                                                    <i class="imv2-video"></i>
+                                                                <span class="title_info ">9-4 从一台服务器迁移数据到另一个线上 MongoDB 中</span>
+                                                                                                                            </li>
+						  							  	
+                            <li>
+                                                                    <i class="imv2-video"></i>
+                                                                <span class="title_info ">9-5 为数据库实现定时备份方案</span>
+                                                                                                                            </li>
+						  							  	
+                            <li>
+                                                                    <i class="imv2-video"></i>
+                                                                <span class="title_info ">9-6 上传数据库备份到七牛私有云</span>
+                                                                                                                            </li>
+						  							  </ul>
+						  					  </div>
+
+					</li>
+				  					<li class="chapter clearfix">
+					  <i class="chapter-icon sz-chapter"></i>
+					  <div class="chapter-bd l">
+						  <h5 class="name">第10章 向服务器正式部署和发布上线 Nodejs 项目
+                                                      </h5>
+						  <p class="desc">利用免费 Git 私有仓库平台管理项目源码版本，从本地及服务器的 PM2 来初始化应用的线上目录，一句命令来实现与服务器通信实现自动获取代码自动重启，分别演示 5 个项目的部署上线流程，演示带数据库的 API 型应用上线流程及微信后台 URL 配置。...</p>
+						  						  <ul>
+						  							  	
+                            <li>
+                                                                    <i class="imv2-video"></i>
+                                                                <span class="title_info ">10-1 上传项目代码到线上私有 Git 仓库</span>
+                                                                                                                            </li>
+						  							  	
+                            <li>
+                                                                    <i class="imv2-video"></i>
+                                                                <span class="title_info ">10-2 配置 PM2 一键部署线上项目结构</span>
+                                                                                                                            </li>
+						  							  	
+                            <li>
+                                                                    <i class="imv2-video"></i>
+                                                                <span class="title_info ">10-3 从本地发布上线和更新服务器的 Nodejs 项目</span>
+                                                                                                                            </li>
+						  							  	
+                            <li>
+                                                                    <i class="imv2-video"></i>
+                                                                <span class="title_info ">10-4 部署发布电影网站并连接线上 MongoDB</span>
+                                                                                                                            </li>
+						  							  	
+                            <li>
+                                                                    <i class="imv2-video"></i>
+                                                                <span class="title_info ">10-5 部署 ReactNative App 线上 API 服务</span>
+                                                                                                                            </li>
+						  							  	
+                            <li>
+                                                                    <i class="imv2-video"></i>
+                                                                <span class="title_info ">10-6 部署微信小程序线上 API 服务</span>
+                                                                                                                            </li>
+						  							  	
+                            <li>
+                                                                    <i class="imv2-video"></i>
+                                                                <span class="title_info ">10-7 部署配置微信公众号项目后台</span>
+                                                                                                                            </li>
+						  							  </ul>
+						  					  </div>
+
+					</li>
+				  					<li class="chapter clearfix">
+					  <i class="chapter-icon sz-chapter"></i>
+					  <div class="chapter-bd l">
+						  <h5 class="name">第11章 使用和配置更安全的 HTTPS 协议
+                                                      </h5>
+						  <p class="desc">不同的 SSL 证书类型及安全等级，利用免费提供 SSL 的平台申请及服务器上通过 Nginx 来配置证书验证模块，最后总结，我们学习和理解了一个真实的本地 Nodejs 项目，是如何被部署上线的，一台真实的服务器生产环境是如何被配置起来的，前端和后端的最后一个环节是如何通过域名和服务器串联起来的，以及必要的安全事...</p>
+						  						  <ul>
+						  							  	
+                            <li>
+                                                                    <i class="imv2-video"></i>
+                                                                <span class="title_info ">11-1 选购申请 SSL 证书的一些建议</span>
+                                                                                                                            </li>
+						  							  	
+                            <li>
+                                                                    <i class="imv2-video"></i>
+                                                                <span class="title_info ">11-2 云平台申请免费证书及 Nginx 配置</span>
+                                                                                                                            </li>
+						  							  	
+                            <li>
+                                                                    <i class="imv2-video"></i>
+                                                                <span class="title_info ">11-3 聊一聊运维安全和应对思路</span>
+                                                                                                                            </li>
+						  							  </ul>
+						  					  </div>
+
+					</li>
+				  				</ul>
+			  			</div>
+							<div class="chapter-update-state over" style="padding-left: 72px;line-height: 58px;border-bottom: 1px solid #eceef0;color: #93999f;">本课程已完结</div>
+					</div>
+	</div>
+    	﻿<div class="recommendcourse">
+	<!-- 讲师 -->
+	<div class="recom-box clearfix">
+		<h3 class="box-tit">讲师</h3>
+		<div class="box-bd">
+						<div class="tea-inst">
+				<div class="medias">
+					<a href="https://www.imooc.com/t/108492" data-href="https://www.imooc.com/space/teacher/id/108492" target="_blank">
+						<img src="./Node.js项目线上服务器部署与发布-课程章节_files/5344e6d10001867401400140-100-100.jpg" class="media" alt="">
+						<span class="name">Scott</span>
+						<i class="ic sz-imooc"></i>
+					</a>
+					<span class="job">全栈工程师</span>
+				</div>
+				<p class="desc">Web前端攻城师88年狮子男，前端攻城4年，以Coding为生，以Coding为乐，爱足球，喜做饭。就职于阿里妈妈用户体验中心-MUX，专注于淘宝单品外投，研究创（Guang）意（Gao）效果，加载方案优化，略有心得。</p>
+			</div>
+					</div><!-- 讲师 end -->
+		<!-- 课前必学 -->
+		<div class="js-prelearn-evalution" data-id="95">
+
+		</div>
+
+
+	</div>
+</div></div>
+<div id="video-wrap" style="display: none;">
+    
+    <div id="video-box">
+        <div class="video-title">
+            <h2>课程预览</h2>
+            <div id="js-close-mediaview" class="close-mediaview imv2-close"></div>
+        </div>
+        <!-- <div id="try-video-container"></div> -->
+        <ul class="video-list"><li>                                            <a href="javascript:void(0);" class="js-change-media ui-media-title" data-mid="3087" data-title="1-1 为什么是全栈最后一公里">                                                <i class="imv2-video_circle"></i>                                                <div class="right-box">                                                     <div class="title">1-1 为什么是全栈最后一公里</div>                                                    <div class="state"></div>                                                </div>                                            </a>                                            <div id="try-video-container0" class="try-video-container" style="display: none;"></div>                                        </li><li>                                            <a href="javascript:void(0);" class="js-change-media ui-media-title" data-mid="3109" data-title="3-1 选购域名的经验分享">                                                <i class="imv2-video_circle"></i>                                                <div class="right-box">                                                     <div class="title">3-1 选购域名的经验分享</div>                                                    <div class="state"></div>                                                </div>                                            </a>                                            <div id="try-video-container1" class="try-video-container" style="display: none;"></div>                                        </li><li class="active">                                            <a href="javascript:void(0);" class="js-change-media ui-media-title" data-mid="3110" data-title="3-2 主机厂商对比及选购阿里云主机">                                                <i class="imv2-video_circle"></i>                                                <div class="right-box">                                                     <div class="title">3-2 主机厂商对比及选购阿里云主机</div>                                                    <div class="state">正在播放</div>                                                </div>                                            </a>                                            <div id="try-video-container2" class="try-video-container" style="display: none;"></div>                                        </li></ul>
+    </div>
+    
+    <div class="next-mask" id="next-mask">
+        <div class="next-content">
+            <div class="wechat-box js-wechat-box">
+                <a href="javascript:void(0)" class="moco-icon-close moco-modal-close wechat-close js-wechat-close"></a>
+                检测到您还没有关注慕课网服务号，无法接收课程更新通知。请扫描二维码即可绑定<div style="text-align:center">
+                <img width="100%" src="https://coding.imooc.com/class/chapter/95.html"></div>
+            </div>
+            <div id="next-media-content"></div>
+            <a href="javascript:;" class="view-again js-view-again">
+                <i class="sz-replay"></i>重新观看
+            </a>
+        </div>
+        <i class="helper"></i>
+    </div>
+</div>
+
+
+
+</div>
+
+
+
+<div id="footer">
+<div class="waper">
+    <div class="footerwaper clearfix">
+        <div class="followus r">
+            <a class="followus-weixin" href="javascript:;" target="_blank" title="微信">
+                <div class="flw-weixin-box"></div>
+            </a>
+            <a class="followus-weibo" href="http://weibo.com/u/3306361973" target="_blank" title="新浪微博"></a>
+            <a class="followus-qzone" href="http://user.qzone.qq.com/1059809142/" target="_blank" title="QQ空间"></a>
+        </div>
+        <div class="footer_intro l">
+            <div class="footer_link">
+                <ul>
+                    <li><a href="https://www.imooc.com/" target="_blank">网站首页</a></li>
+                    <!-- <li><a href="//www.imooc.com/index/companytrain" target="_blank" title="企业合作">企业合作</a></li> -->
+                    <li><a href="https://b.imooc.com/" target="_blank" title="企业服务">企业服务</a></li>
+                    <li><a href="https://www.imooc.com/about/job" target="_blank">人才招聘</a></li>
+                    <li> <a href="https://www.imooc.com/about/contact" target="_blank">联系我们</a></li>
+                    <li> <a href="https://www.imooc.com/about/recruit" target="_blank">讲师招募</a></li>
+                     <li> <a href="https://www.imooc.com/help/cate/19" target="_blank">帮助中心</a></li>
+                    <li> <a href="https://www.imooc.com/user/feedback?coding" target="_blank">意见反馈</a></li>
+                    <li><a href="http://daxue.imooc.com/" target="_blank">慕课大学</a></li>
+                    <li><a href="https://git.imooc.com/" target="_blank">代码托管</a></li>
+                    <li> <a href="https://www.imooc.com/about/friendly" target="_blank">友情链接</a></li>
+                    <!-- <li><a href="http://www.imooc.com/about/us" target="_blank">关于我们</a></li> -->
+                </ul>
+            </div>
+            <p>Copyright <img draggable="false" class="moco-emoji" alt="©" src="./Node.js项目线上服务器部署与发布-课程章节_files/a9.png"> 2020 imooc.com All Rights Reserved | 京ICP备 12003892号-11 <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010802030151" style="margin:0 5px;color: #787D82;" target="_blank"><i class="beian"></i>京公网安备11010802030151号</a></p>
+        </div>
+    </div>
+</div>
+</div>
+<!-- 新人有礼入口-->
+
+
+
+
+
+<div id="J_GotoTop" class="elevator">
+    <a href="https://www.imooc.com/user/feedback?coding" class="elevator-msg" target="_blank">
+        <i class="sz-feedback"></i>
+        <span class="">意见反馈</span>
+    </a>
+    <a href="https://order.imooc.com/pay/sharegoods" class="elevator-dist" style="display:none;" target="_blank">
+        <i class=""></i>
+        <span class="">分销返利</span>
+    </a>
+    <!-- <a href="//www.imooc.com/act/invite"  class="elevator-dist"  target="_blank">
+        <i class=""></i>
+        <span class="">邀请有奖</span>
+    </a> -->
+    <a href="https://www.imooc.com/help/cate/19" class="elevator-faq" target="_blank">
+        <i class="sz-help_outline"></i>
+        <span class="">帮助中心</span>
+    </a>
+    <a href="https://www.imooc.com/mobile/app" target="_blank" class="elevator-app">
+        <i class="sz-appdownload"></i>
+        <span class="">APP下载</span>
+        <div class="elevator-app-box"></div>
+    </a>
+    <a href="javascript:void(0)" class="elevator-weixin no-goto" id="js-elevator-weixin">
+        <i class="sz-weixigzh"></i>
+        <span class="">官方微信</span>
+        <div class="elevator-weixin-box"></div>
+    </a>
+    <a href="javascript:void(0)" class="elevator-top no-goto" style="display: block;" id="backTop">
+        <i class="sz-arrow-up"></i>
+        <span class="">返回顶部</span>
+    </a>
+</div>
+
+<!-- 右侧浮动广告位 -->
+<div id="globalRightFloat"></div>
+
+
+
+<script type="text/javascript" src="./Node.js项目线上服务器部署与发布-课程章节_files/error.js"></script>
+<script src="./Node.js项目线上服务器部署与发布-课程章节_files/ssologin.js"></script>
+<script type="text/javascript" src="./Node.js项目线上服务器部署与发布-课程章节_files/common.js"></script>
+<script type="text/javascript" src="./Node.js项目线上服务器部署与发布-课程章节_files/moco.min.js"></script>
+
+
+
+
+    <script src="./Node.js项目线上服务器部署与发布-课程章节_files/jquery.fly.js"></script>
+	<script src="./Node.js项目线上服务器部署与发布-课程章节_files/qrcode.js"></script>
+					<script>
+	    window.GlobalConf = {
+	        course: '95',
+	        user: '358377'
+	    }
+	</script>
+	<script>
+		// 诸葛io埋点
+		$('.zhuge_package').on('click',function(){
+			zhugeFun('ClickSet',this)
+		})
+		$('.zhuge_chapter').on('click',function(){
+			zhugeFun('ClickCatalog',this)
+		})
+		$('.zhuge_consult').on('click',function(){
+			zhugeFun('ClickConsult',this)
+		})
+		$('.zhuge_evaluate').on('click',function(){
+			zhugeFun('ClickEvaluate',this)
+		})
+		var zhugeFun = function(name,_this){
+			zhuge.track(name, {
+				'CID': window.GlobalConf.course
+			},function(){
+				var href = $(_this).attr('data-href')
+				location.href = href;
+			});
+		}
+	</script>
+    <script data-entry="class/index">
+		requirejs(['class/index','class/package/index'], function(){});
+    (function(){
+    	var imgPic = '//img1.sycdn.imooc.com/szimg/58e75f2e00015c0705400300-280-160.jpg' || 'https://www.imooc.com/static/img/index/logo_new.png',
+            text = '我正在参加@慕课网 的一门课程【' + 'Node.js项目线上服务器部署与发布' + '】，很不错哦！快来一起学习吧！', //节名称
+            url ;
+    	function setConf(cmd,config){
+    		config.bdText = text;
+            config.bdPic = imgPic;
+			if (window.dist_url) {
+                config.bdUrl = window.dist_url;
+            }else{
+            	config.bdUrl = 'https://coding.imooc.com' + window.location.pathname;
+            }
+            return config;
+		}
+        window._bd_share_config = {
+            "common": {
+                "bdSnsKey": {
+                  'tsina':'2788596354'
+                },
+                "bdMini": "2",
+                "bdMiniList": false,
+                "bdStyle": "0",
+                "bdSize": "16",
+                "onBeforeClick":setConf
+            },
+            "share": {}
+        };
+        with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = '/static/lib/baiduShare/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+      })();
+	</script>
+
+<script data-entry="class/chapter/index">requirejs(['class/chapter/index']);</script>
+<script data-entry="class/chapter/player">requirejs(['class/chapter/player']);</script>
+
+
+<div class="comp-modal-overlay"></div>
+<div class="modal modal-buy" id="before-buy-modal">
+    <div class="inner">
+        <div class="header">
+            <strong class="tit">购买课程</strong>
+            <a href="javascript:;" class="help">帮助？</a>
+        </div>
+        <div class="content">
+            <div class="infos">
+                <span class="name">Node.js项目线上服务器部署与发布</span>
+                <span class="price">
+																	<i>¥</i><b>158</b><i>.00</i>
+								</span>
+                <span class="deadline">
+					
+					                </span>
+            </div>
+        </div>
+        <div class="footer">
+            <a href="javascript:;" class="cancel-btn" rel="modal:close">取消</a>
+            <a data-href="/pay/buynow/cid/95" href="javascript:;" class="go-pay-btn">去支付</a>
+        </div>
+    </div>
+</div>
+<div class="modal modal-dist-share" id="modal-dist-share">
+	<div class="close-dist-share imv2-close js-close-distShare"></div>
+	<div class="inner">
+		<div class="content">
+			<div class="dist-share-box" data-bd-bind="1439263858135">
+				<h2>邀请好友学习</h2>
+				<p class="share-msg">每邀请一位你将得 <span>¥</span> </p>
+				<div class="share-box">
+					<div class="wechat-box">
+						<h3>微信邀请</h3>
+						<div id="wx_qrcode"></div>
+					</div>
+					<div class="other-box">
+						<h3>链接邀请</h3>
+						<div class="copy-url">
+							<input class="js-dist-content" type="text" value=""><button class="js-copy-dist">复制链接</button>
+						</div>
+						<h3 class="js-hide-head">海报邀请</h3>
+						<span data-id="95" class="js-poster">点击生成海报</span>
+					</div>
+				</div>
+				<!--<div class="dist-more"><a href="https://order.imooc.com/pay/sharegoods"  target="_blank" class='share'>更多分享赚学费 >></a></div>-->
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal modal-dist-poster" id="modal-dist-poster">
+	<div class="content">
+		<span class="sz-close-h js-close-poster"></span>
+		<input type="hidden" class="js-short-url" value="">
+		<div class="poster-content" id="canvas-contnet">
+						<div class="poster-content-1">
+				<img class="poster-logo" src="./Node.js项目线上服务器部署与发布-课程章节_files/logo_new.png" alt="">
+				<div class="user-info js-poster-avator">
+					<img class="header-img" src="data:image/jpeg;base64,">
+					<p class="nickname js-header-nickname">斐然duy</p>
+											<p>向您推荐</p>
+									</div>
+				<div class="course-desc-box">
+					<dl>
+						<dt>Node.js项目线上服务器部署与发布</dt>
+						<div class="dist_trait" id="dist_trait">
+													</div>
+					</dl>
+				</div>
+				<div class="course-info-bar">
+					<div class="course-price">
+											<h3>￥158.00</h3>
+						<div class="bar-top">
+							<span>中级难度</span>
+							<span class="itline">/</span>
+							<span>1747 人在学</span>
+						</div>
+										</div>
+					<div class="course-short-qrode">
+						<div id="qrcode" class="two-code"></div>
+						<p>扫码学习</p>
+					</div>
+				</div>
+			</div>
+					</div>
+		<div class="canvas-img-content" id="canvas-image">
+		</div>
+		<p class="friend-tips">如无法下载使用图片另存为</p>
+		<span class="js-down-poster">下载海报</span>
+	</div>
+</div>
+<!--有问题找我呀-->
+<div class="wx_question-btn js-checkme" style="display:none;"></div>
+<div class="js-qrcode-modal">
+	<div class="qrcode-modal">
+		<div class="qrcode-modal-header">
+			<h3>学习咨询</h3>
+            <p>选课、学习遇到问题？</p>
+            <p>扫码添加指导老师 1V1 帮助你！</p>
+			<span class="close imv2-close js-close"></span>
+        </div>
+                <p class="tip1">添加后老师会第一时间解决你的问题</p>
+    </div>
+</div>
+
+<div style="display: none">
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?c1c5f01e0fc4d75fd5cbb16f2e713d56";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+</div>
+
+
+</div></body></html>
