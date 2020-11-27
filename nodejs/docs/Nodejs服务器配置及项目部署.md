@@ -120,8 +120,27 @@ root权限是服务器的最高权限;
 添加一个用户：`adduser xxx`；设置密码;对此用户授权: `gpasswd -a xxx sudo` 让此用户以sudo的角色调用系统命令，但必须输入密码；
 `sudo visudo`
 
-
 #### 4-3 配置本地无密码 SSH 登录
+
+SSH 无密码登录：
+本地私钥 --> 本地传到服务器的公钥 --> 秘钥算法比对 --> 登录成功
+
+本地配置公钥和私钥；本地有的话就无需再生成，否则会覆盖掉之前的，导致之前的git, gitlib的ssh出问题
+
+（1）`pwd` 到用户目录 
+（2）`ls -a` 找到 .ssh
+（3）在.ssh文件中
+`id_rsa` 私钥；`id_rsa.pub` 公钥；known_hosts
+有`id_rsa`就表示已经生成过了
+（4）开启ssh代理
+`eval "$(ssh-agent -s)"`
+（5）把ssh-key加入到代理中
+`ssh-add ~/.ssh/id_rsa`
+
+备注：
+（1）生成ssh
+`ssh-keygen -t rsa -b 4096 -C "xxx@qq.com"`
+密码不输入-- 方便
 
 
 
