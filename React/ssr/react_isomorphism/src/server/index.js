@@ -49,4 +49,21 @@ app.get('*', (req, res) => {
   })
 });
 
+// app.get('*', (req, res) => {
+//   const html = `
+//     <!DOCTYPE html>
+//     <html>
+//     <head>
+//       <title></title>
+//       <style></style>
+//     </head>
+//     <body>
+//       <div id="root"></div>
+//       <script src="/index.js"></script>
+//     </body>
+//     </html>
+//   `
+//   res.send(html);
+// })
+
 app.listen(port, () => console.log(`react isomorphism app listening on port ${port}`));

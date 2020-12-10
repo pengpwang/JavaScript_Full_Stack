@@ -1,3 +1,23 @@
+#### 注意：
+
+TODO:
+babel
+webpack
+react
+react-dom
+react-router-dom
+react-router-config
+express
+redux
+react-redux
+redux-thunk
+css-loader
+style-loader
+isomorphic-style-loader
+
+promise
+
+
 ## source
 
 ### 第一章 导读

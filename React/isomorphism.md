@@ -1,57 +1,4 @@
 
-#### 注意：
-
-TODO:
-babel
-webpack
-react
-react-dom
-react-router-dom
-react-router-config
-express
-redux
-react-redux
-redux-thunk
-css-loader
-style-loader
-isomorphic-style-loader
-
-promise
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ### 一、H5同构项目目标：
 1. 首要目标：
   性能上
@@ -113,8 +60,8 @@ promise
 
 ### 三、h5项目React同构改造方案基建
 #### (一)、目录结构调整：
-1. 服务端运行的代码与客户端运行的代码的差异化区分抽离(`/src/server`, `/src/browser`)及共性抽离(`/src/shared`)
- - `/browser`负责浏览器端的渲染
+1. 服务端运行的代码与客户端运行的代码的差异化区分抽离(`/src/server`, `/src/client`)及共性抽离(`/src/shared`)
+ - `/client`负责浏览器端的渲染
  - `/server`负责服务端的逻辑，主要包括响应页面请求、服务端渲染等
  - `/shared`为两端同构部分，包括构成页面的所有组件、组件依赖的样式文件以及静态资源等
 目的：维护性；构建编译的前提
@@ -125,14 +72,14 @@ promise
 3. 服务端构建及客户端构建；两端构建的共性及差异性
 4. webpack配置优化 - 主要为客户端配置优化
 5. npm script 构建流 - 包括本地开发构建流，生产构建
-  a. dev - 本地开发环境启动，包括保存后同步编译客户端运行代码【内存中，缓存构建】，服务端运行代码【内存中？缓存构建？调研实现？】，启动服务端nodejs渲染服务器，启动静态资源服务器？ ==》构建速度需优化 ✨
+  a. dev - 本地开发环境启动，包括保存后同步编译客户端运行代码【内存中，缓存构建】，服务端运行代码【落磁盘】，启动服务端nodejs渲染服务器 ==》构建速度需优化 ✨
   b. build - 打包服务端以及客户端资源文件
   c. start - 生产代码构建后，start启动nodejs渲染服务器  --- 生产环境启动方式
   d. analyze - 可视化分析客户端打包的资源详情 --- 用于分析构建打包产出
   d. 构建速度优化 -- 是否需要引入底层以Rust/Go为内核的构建工具提高编译打包速度？
 
 #### (三)、服务端React与客户端React
-1. 服务端通过renderToString将虚拟DOM渲染成字符串
+1. 服务端通过renderToString将虚拟DOM渲染成字符串；或通过renderToNodeStream返回Readable stream 字节流
 2. 客户端通过ReactDOM.hydrate水合服务端html
 3. 服务端无法执行事件绑定，客户端执行js，绑定事件
 4. 服务端无法执行`componentDidMount`，原客户端此生命周期内获取数据的方法需抽取出，构造组件级静态方法`loadData`用于服务端数据获取；若服务端注入此组件数据，客户端`componentDidMount`无需再次获取对应数据
@@ -158,8 +105,8 @@ promise
 7. 数据同步策略 -- 服务端渲染用到的数据在客户端重用 -- 数据的注水及脱水
 
 #### (六)、css样式
-1. 服务器端使用isomorphic-style-loader，浏览器端使用style-loader
-2. React高阶组件封装 - 组件样式生成
+1. 服务器端使用isomorphic-style-loader，浏览器端使用style-loader；或统一使用css-hot-loader
+2. 使用isomorphic-style-loader时需React高阶组件封装 - 组件样式生成
 3. 服务端css样式组装及注入 -- 客户端js是否重新驱动覆盖首屏内嵌style？
 
 #### (七)、服务端缓存：
@@ -173,7 +120,7 @@ promise
   a. 服务端渲染流程中发生某些异常或全部异常？
   b. 大流量场景减少服务器负担
 2. 降级机制包括：
-  a. URL或配置文件中的全局降级
+  a. URL或配置文件中的全局降级；或者配置文件中指定路由的降级
   b. 服务器端渲染流程中发生异常
 
 #### (九)、接入全链路追踪：
@@ -201,7 +148,7 @@ promise
 其他问题：
 1. nodejs SSR渲染服务器是否提供静态资源服务器功能
 2. nodejs SSR渲染服务器是否提供数据代理转发功能，以优化数据调用链路
-  - 如果提供数据代理转发功能，什么情况下代理？ -- 请求path？
+  - 如果提供数据代理转发功能，什么情况下代理？ -- 请求path？_mt区分？
   - 不提供数据代理，渲染服务器请求网关与浏览器端请求网关 - 同步？渲染服务器直接转发浏览器验签参数或渲染服务器实现浏览器验签功能
 ...其他...
 

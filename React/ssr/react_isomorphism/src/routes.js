@@ -2,10 +2,10 @@
 
 import React, { Fragment } from 'react';
 import { Route } from 'react-router-dom';
-import App from './containers/App';
-import Home from './containers/Home';
-import Login from './containers/Login';
-import NotFound from './containers/NotFound';
+import App from './shared/containers/App';
+import Home from './shared/containers/Home';
+import Login from './shared/containers/Login';
+import NotFound from './shared/containers/NotFound';
 
 export default [
   {
@@ -14,7 +14,7 @@ export default [
     key: '/App',
     routes: [
       {
-        path: '/',
+        path: '/home',
         component: Home,
         loadData: Home.loadData,
         exact: true,
