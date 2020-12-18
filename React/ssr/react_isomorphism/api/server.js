@@ -35,6 +35,38 @@ app.get('/api/news', (req, res) => {
   })
 });
 
+
+app.get('/api/footer_news', (req, res) => {
+  res.json({
+    code: 0,
+    data: [{
+      id: 1,
+      title: 'footer_news1'
+    }, {
+      id: 2,
+      title: 'footer_news2'
+    }, {
+      id: 3,
+      title: 'footer_news3'
+    }, {
+      id: 4,
+      title: 'footer_news4'
+    }, {
+      id: 5,
+      title: 'footer_news5'
+    }, {
+      id: 6,
+      title: 'footer_news6'
+    }, {
+      id: 7,
+      title: 'footer_news7'
+    }, {
+      id: 8,
+      title: 'footer_news8'
+    }]
+  })
+});
+
 app.get('/api/login', (req, res) => {
   res.json({
     code: 0,

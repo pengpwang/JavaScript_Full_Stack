@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
+import Footer from '../../components/Footer';
 import { getHomeList } from './store/actions';
 import withStyles from '../../../withStyles';
 
@@ -25,6 +26,7 @@ class Home extends React.Component {
         <div>Home! {this.props.name}</div>
         { this.getHomeNewsList() }
         <button onClick={() => alert(1)}>click</button>
+        <Footer></Footer>
       </div>
     );
   }

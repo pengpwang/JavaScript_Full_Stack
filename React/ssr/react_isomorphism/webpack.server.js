@@ -1,5 +1,5 @@
 const path = require('path');
-const nodeExternals = require('webpack-node-externals'); // node_modules下的模块node下无需打包
+const nodeExternals = require('webpack-node-externals'); 
 const { merge } = require('webpack-merge');
 const baseConfig = require('./webpack.base');
 
@@ -10,7 +10,9 @@ const serverConfig = {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'build')
   },
-  externals: [nodeExternals()],
+  externals: [nodeExternals({
+    allowlist: [ /\.(css|less|sass|scss)$/ ]
+  })], // node_modules下的模块无需打包
   module: {
     rules: [{
       test: /\.css$/,
@@ -32,3 +34,5 @@ const serverConfig = {
 };
 
 module.exports = merge(baseConfig, serverConfig);
+
+
