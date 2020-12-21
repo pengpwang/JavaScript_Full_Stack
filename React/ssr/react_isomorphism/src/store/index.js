@@ -10,11 +10,11 @@ const reducer = combineReducers({
   footer: FooterReducer
 });
 
-export const getStore = (req) => {
+export const getServerStore = (req) => {
   return createStore(reducer, applyMiddleware(thunk.withExtraArgument(serverAxios(req))));
 }
 
 export const getClientStore = () => {
-  const defaultStore = window.context ? window.context.state : {};
+  const defaultStore = window.context ? window.context.__INIT_STATE__ : {};
   return createStore(reducer, defaultStore, applyMiddleware(thunk.withExtraArgument(clientAxios)));
 }

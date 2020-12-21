@@ -2,7 +2,7 @@ import express from 'express';
 import { matchRoutes } from 'react-router-config';
 import proxy from 'express-http-proxy';
 import render from './render';
-import { getStore } from '../store';
+import { getServerStore } from '../store';
 import routes from '../routes';
 
 
@@ -19,11 +19,10 @@ app.use('/api', proxy('http://localhost:4000', {
 }));
 
 app.get('*', (req, res) => {
-  const store = getStore(req);
+  const store = getServerStore(req);
   // 多级路由匹配  react-router-config
   const matchedRoutes = matchRoutes(routes, req.path);
   const promises = [];
-  console.log('matchedRoutes', matchedRoutes);
   matchedRoutes.forEach(item => {
     if(item.route.loadData){
       // 防止一个接口的失败，影响页面的渲染

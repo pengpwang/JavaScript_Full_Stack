@@ -36,7 +36,7 @@ export default (store, routes, req, context) => {
       <div id="root">${html}</div>
       <script>
           window.context = {
-            state: ${JSON.stringify(store.getState())}
+            __INIT_STATE__: ${JSON.stringify(store.getState())}
           };
       </script>
       <script src="/index.js"></script>

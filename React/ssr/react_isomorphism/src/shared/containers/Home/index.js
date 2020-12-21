@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import Footer from '../../components/Footer';
 import { getHomeList } from './store/actions';
+import { getClientStore } from '../../../store';
 import withStyles from '../../../withStyles';
 
 
@@ -54,5 +55,6 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-// export default connect(mapStateToProps, mapDispatchToProps)(withStyles(Home, styles));
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
+
+// export default connect(mapStateToProps, mapDispatchToProps)(withStyles(Home, styles));
