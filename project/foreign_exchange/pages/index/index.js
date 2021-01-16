@@ -230,8 +230,29 @@ Page({
     list: []
   },
   onLoad() {
+    // this.getData();
+  },
+  onPullDownRefresh(){
+    console.log('下拉刷新~')
+    // this.getData();
+  },
+  linkToCalculator(e) {
+    const name = e.currentTarget.dataset.name;
 
-    // const list = Object.values(mock);
+    if(name){
+      wx.navigateTo({
+        url: `../calculator/calculator?name=${name}`
+      });
+    }else{
+      wx.showModal({
+        title: '提示',
+        content: '无法跳转'
+      })
+    }
+    
+  },
+  getData() {
+       // const list = Object.values(mock);
     // this.setData({
     //   list
     // }, () => {
@@ -273,20 +294,5 @@ Page({
         }
       }
     })
-  },
-  linkToCalculator(e) {
-    const name = e.currentTarget.dataset.name;
-
-    if(name){
-      wx.navigateTo({
-        url: `../calculator/calculator?name=${name}`
-      });
-    }else{
-      wx.showModal({
-        title: '提示',
-        content: '无法跳转'
-      })
-    }
-    
   }
 })

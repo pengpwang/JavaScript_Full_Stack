@@ -1,4 +1,5 @@
 {
   "navigationBarTitleText": "外汇牌价",
+  "enablePullDownRefresh": true,
   "usingComponents": {}
 }
