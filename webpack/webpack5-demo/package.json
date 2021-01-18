@@ -1,0 +1,19 @@
+{
+  "name": "webpack5-demo",
+  "version": "1.0.0",
+  "description": "webpack5 demo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "webpack5",
+    "demo"
+  ],
+  "author": "Alchemy <329109929@qq.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^5.15.0",
+    "webpack-cli": "^4.3.1"
+  }
+}

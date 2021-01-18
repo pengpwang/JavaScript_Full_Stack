@@ -1,5 +1,10 @@
 <!--index.wxml-->
 <view class="container">
+  <view class="tips_wrap">下拉刷新</view>
+  <view class="tips_epidemic" bindtap="linkToEpidemic">
+    <image class="tips_epidemic_banner" src="../../images/banner.png" mode="aspectFill" />
+    <view class="tips_epidemic_text">实时新冠疫情播报</view>
+  </view>
   <view class="item-wrap" wx:for="{{ list }}" wx:key="unique" bindtap="linkToCalculator" data-name="{{ item.name }}">
     <view class="item-logo">{{ item.name }}</view>
     <view class="item-info">

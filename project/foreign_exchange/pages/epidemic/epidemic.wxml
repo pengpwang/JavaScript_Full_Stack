@@ -1,0 +1,52 @@
+<view class="container">
+  <view class="total-all-wrap">
+    <view class="total-all">国内疫情</view>
+    <view class="total-all-tips-W">
+      <view class="total-all-tips">统计：{{allData.dataSourceUpdateTime.updateTime}} </view>
+      <view class="total-all-tips total-all-tips-pp">数据来源：{{allData.dataSourceUpdateTime.dataSource}} </view>
+    </view>
+    <view class="total-data">
+      <view class="all-item">
+        <view class="all-i-txt">累计确诊</view>
+        <view class="all-i-num">{{allData.country.totalConfirmed}}</view>
+      </view>
+      <view class="all-item">
+        <view class="all-i-txt">累计治愈</view>
+        <view class="all-i-num">{{allData.country.totalCured}}</view>
+      </view>
+      <view class="all-item">
+        <view class="all-i-txt">累计死亡</view>
+        <view class="all-i-num">{{allData.country.totalDeath}}</view>
+      </view>
+      <view class="all-item">
+        <view class="all-i-txt">现有确诊</view>
+        <view class="all-i-num">{{ allData.country.totalConfirmed - allData.country.totalCured -  allData.country.totalDeath}}</view>
+      </view>
+      <view class="all-item">
+        <view class="all-i-txt">全国疑似</view>
+        <view class="all-i-num">{{ allData.country.totalDoubtful }}</view>
+      </view>
+    </view>
+  </view>
+  <view class="total-all-wrap">
+    <view class="total-all">各地疫情</view>
+    <view class="total-all-table">
+      <view class="table-header">
+        <view class="header header-1">城市</view>
+        <view class="header header-2">省市区</view>
+        <view class="header header-3">累计确诊</view>
+        <view class="header header-4">累计治愈</view>
+        <view class="header header-5">累计死亡</view>
+      </view>
+      <block wx:for="{{allData.provinceArray}}" wx:for-item="item1" wx:key="unique">
+        <view class="table-b" wx:for="{{item1.cityArray}}" wx:for-item="item2" wx:key="unique">
+          <view class="b b-1">{{ item2.childStatistic }}</view>
+          <view class="b b-2">{{ item1.childStatistic }}</view>
+          <view class="b b-3">{{ item2.totalConfirmed }}</view>
+          <view class="b b-4">{{ item2.totalCured }}</view>
+          <view class="b b-5">{{ item2.totalDeath }}</view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>

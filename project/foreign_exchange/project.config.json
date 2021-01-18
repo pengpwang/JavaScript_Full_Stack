@@ -4,7 +4,7 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": true,
 		"enhance": true,
 		"postcss": true,
@@ -62,6 +62,12 @@
 					"name": "pages/calculator/calculator",
 					"pathName": "pages/calculator/calculator",
 					"query": "name=美元",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/epidemic/epidemic",
+					"pathName": "pages/epidemic/epidemic",
 					"scene": null
 				}
 			]

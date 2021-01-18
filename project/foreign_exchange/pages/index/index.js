@@ -230,11 +230,11 @@ Page({
     list: []
   },
   onLoad() {
-    // this.getData();
+    this.getData();
   },
   onPullDownRefresh(){
     console.log('下拉刷新~')
-    // this.getData();
+    this.getData();
   },
   linkToCalculator(e) {
     const name = e.currentTarget.dataset.name;
@@ -250,6 +250,11 @@ Page({
       })
     }
     
+  },
+  linkToEpidemic(){
+    wx.navigateTo({
+      url: `../epidemic/epidemic`
+    });
   },
   getData() {
        // const list = Object.values(mock);

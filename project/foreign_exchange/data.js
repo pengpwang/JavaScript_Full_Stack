@@ -1,4 +1,4 @@
-{
+module.exports = {
   "country": {
     "totalCured": 91659,
     "totalDeath": 4802,
