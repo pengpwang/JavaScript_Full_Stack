@@ -1,0 +1,13 @@
+{
+  "name": "5-es6",
+  "version": "1.0.0",
+  "description": "",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "../node_modules/.bin/webpack --config webpack.config.js --env NODE_ENV=local --env production"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

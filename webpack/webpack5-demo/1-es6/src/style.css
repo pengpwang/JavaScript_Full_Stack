@@ -1,0 +1,18 @@
+
+@font-face {
+  font-family: 'DSketch';
+  src: url('./DSketch.otf') format('otf');
+  font-weight: 600;
+}
+
+#app {
+  color: red;
+  background: url('./fox.jpeg');
+  width: 200px;
+  height: 200px;
+}
+
+.hello{
+  font-family: 'DSketch';
+  color: red;
+}
