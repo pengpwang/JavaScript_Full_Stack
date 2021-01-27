@@ -1,0 +1,14 @@
+{
+  "name": "7-es6",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "../node_modules/.bin/webpack serve --open --config webpack.dev.js",
+    "build": "../node_modules/.bin/webpack --config webpack.prod.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
