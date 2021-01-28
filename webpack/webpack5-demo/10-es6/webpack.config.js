@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -11,7 +12,8 @@ module.exports = {
   },
   output: {
     filename: '[name].js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
+    // publicPath: 'http://assets.xxx.com/assets/'
   },
   module: {
     rules: [
@@ -22,10 +24,11 @@ module.exports = {
     ]
   },
   plugins: [
+    new webpack.ProgressPlugin(),
     new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
-    // new HtmlWebpackPlugin({
-    //   title: 'Entry'
-    // }),
+    new HtmlWebpackPlugin({
+      title: 'Entry'
+    }),
     new MiniCssExtractPlugin({
       filename: '[name].css'
     })
