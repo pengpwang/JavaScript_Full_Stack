@@ -16,7 +16,7 @@
   "author": "alchemy <329109929@qq.com>",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.20.0",
+    "axios": "^0.21.1",
     "express": "^4.17.1",
     "express-http-proxy": "^1.6.2",
     "react": "^16.14.0",
